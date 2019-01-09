@@ -1,3 +1,11 @@
+
+// output folders
 bin/
 target/
 /.metadata/
+.idea/
+.DS_Store
+
+// temporary generated files
+*.xtendbin
+*._trace
