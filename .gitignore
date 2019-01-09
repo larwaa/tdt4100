@@ -1,4 +1,3 @@
-
 // output folders
 bin/
 target/
@@ -9,3 +8,9 @@ target/
 // temporary generated files
 *.xtendbin
 *._trace
+
+
+.project
+
+// JDT-specific (Eclipse Java Development Tools)     
+.classpath
