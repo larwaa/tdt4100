@@ -1,5 +1,6 @@
 package average;
 
+// Beregne gjennomsnitt av tall som legges inn 
 public class Average {
 
 	int valueCount = 0;

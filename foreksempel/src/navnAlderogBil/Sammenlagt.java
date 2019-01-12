@@ -1,9 +1,9 @@
-package NavnogAlder;
+package navnAlderogBil;
 
 public class Sammenlagt {
 
-	Person2 p1;
-	Person2 p2;
+	Person p1;
+	Person p2;
 	
 	
 	public int Total() {
@@ -15,7 +15,7 @@ public class Sammenlagt {
 	Total()+ " år gamle.");
 	}
 	
-	public Sammenlagt(Person2 p1, Person2 p2) {
+	public Sammenlagt(Person p1, Person p2) {
 		super();
 		this.p1 = p1;
 		this.p2 = p2;
@@ -23,9 +23,10 @@ public class Sammenlagt {
 
 	public static void main(String[] args) {
 
-		Person2 p1 = new Person2("Andrea",12);
-		Person2 p2 = new Person2("Ole",14);
-		Sammenlagt S = new Sammenlagt(p1, p2);
+		Person p1 = new Person("Andrea",12);
+	
+		// En kan lage nye objekter også inni metodekall...
+		Sammenlagt S = new Sammenlagt(p1, new Person("Ole",14));
 		S.printTotal();
 		
 	}
