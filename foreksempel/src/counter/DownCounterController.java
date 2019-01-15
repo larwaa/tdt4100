@@ -1,10 +1,14 @@
 package counter;
 
+import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public class DownCounterController {
+public class DownCounterController extends Application{
 
 	DownCounter downCounter = new DownCounter(3);
 	
@@ -31,5 +35,15 @@ public class DownCounterController {
 	void handleCountDown() {
 		downCounter.countDown();
 		updateOutput();
+	}
+	@Override
+	public void start(final Stage primaryStage) throws Exception {
+		primaryStage.setTitle("Chess");
+		primaryStage.setScene(new Scene(FXMLLoader.load(DownCounter.class.getResource("DownCounter.fxml"))));
+		primaryStage.show();
+	}
+
+	public static void main(final String[] args) {
+		Application.launch(args);
 	}
 }
