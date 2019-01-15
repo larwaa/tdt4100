@@ -22,13 +22,13 @@ public class Car {
 		}
 	}
 
-//	public String toString() {
-//		String tmp = "";
-//		for (Person person : persons) {
-//			tmp = tmp + person.toString()+"\n";
-//		}
-//		return tmp;
-//	}
+	public String toString() {
+		String tmp = "";
+		for (Person person : persons) {
+			tmp = tmp + person.toString()+"\n";
+		}
+		return tmp;
+	}
 	
 	public boolean placePerson(Person p) {
 		
