@@ -4,6 +4,7 @@ public class Person {
 
 	String name;
 	int age;
+	static String type = "Menneske";
 	
 	
 	public Person(String name, int age) {
@@ -13,7 +14,7 @@ public class Person {
 
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 
@@ -21,6 +22,10 @@ public class Person {
 		return age;
 	}
 	
+	static public String getType() {
+		return type;
+		
+	}
 	public String toString() {
 		return name + " er " + age + " år gammel!";
 	}
@@ -30,6 +35,7 @@ public class Person {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println(getType());
 		Person p1 = new Person("Åge", 23);
 		Person p2 = new Person("Per", 33);
 		Person p3 = new Person("Ida", 43);
