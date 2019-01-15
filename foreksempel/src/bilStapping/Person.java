@@ -10,6 +10,7 @@ public class Person {
 	public Person(String name, int age) {
 		this.name = name;
 		this.age = age;
+		type = "ork";
 	}
 
 
@@ -37,6 +38,7 @@ public class Person {
 	public static void main(String[] args) {
 		System.out.println(getType());
 		Person p1 = new Person("Åge", 23);
+		System.out.println(p1.getType());
 		Person p2 = new Person("Per", 33);
 		Person p3 = new Person("Ida", 43);
 		p1.printInfo();
