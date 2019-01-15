@@ -21,6 +21,10 @@ public class Person {
 		return age;
 	}
 	
+//	public String toString() {
+//		return name + " er " + age + " år gammel.";
+//	}
+	
 	public void printInfo() {
 		System.out.println(name + " er " + age + " år gammel.");
 	}
