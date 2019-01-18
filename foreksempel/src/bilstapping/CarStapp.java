@@ -1,10 +1,10 @@
-package bilStapping;
+package bilstapping;
 
 public class CarStapp {
 
 	Car car;
 	
-	void RunSystem() {
+	void runSystem() {
 		
 		Person p1 = new Person("Jens", 12);
 		Person p2 = new Person("Ada", 88);
@@ -24,7 +24,7 @@ public class CarStapp {
 	
 	public static void main(String[] args) {
 		CarStapp cs = new CarStapp();
-		cs.RunSystem();
+		cs.runSystem();
 	}
 
 }

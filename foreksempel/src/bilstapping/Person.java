@@ -1,4 +1,4 @@
-package bilStapping;
+package bilstapping;
 
 public class Person {
 
@@ -36,7 +36,7 @@ public class Person {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(getType());
+//		System.out.println(getType());
 		Person p1 = new Person("Åge", 23);
 		System.out.println(p1.getType());
 		Person p2 = new Person("Per", 33);

@@ -1,4 +1,4 @@
-package bilStapping;
+package bilstapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ public class Car {
 		}
 	}
 
+	@Override
 	public String toString() {
 		String tmp = "";
 		for (Person person : persons) {
@@ -29,7 +30,7 @@ public class Car {
 		}
 		return tmp;
 	}
-	
+
 	public boolean placePerson(Person p) {
 		
 		if (this.seats == persons.size() ) {
