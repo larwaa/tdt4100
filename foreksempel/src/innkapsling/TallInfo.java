@@ -29,7 +29,7 @@ public class TallInfo {
 
 	public static void main(String[] args) {
 		TallInfo t = new TallInfo(4);
-		System.out.println(t.getSquare());
+		System.out.println(t.getSquared());
 		System.out.println(t.getDoubled());
 		
 		
