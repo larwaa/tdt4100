@@ -1,0 +1,8 @@
+Potet,10.0
+Melk,20.0
+Laks,50.0
+Brokkoli,15.0
+Eple,5.0
+Banan,8.2
+BigJava,800.0
+Brus,25.5
