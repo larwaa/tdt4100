@@ -14,7 +14,7 @@ public class CarPlate {
 	
 	private void setPlate(String plate) {
 		this.plate = new Plate(plate);
-//		this.plate.setPlate(plate); // Sånn var det på mandagsforelesningen
+//		this.plate.setPlate(plate);  // Sånn var det på mandagsforelesningen
 	}
 	
 	private List<Person> persons = new ArrayList<Person>();
