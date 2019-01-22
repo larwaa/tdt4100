@@ -13,7 +13,8 @@ public class CarPlate {
 	}
 	
 	private void setPlate(String plate) {
-		this.plate.setPlate(plate);
+		this.plate = new Plate(plate);
+//		this.plate.setPlate(plate); // Sånn var det på mandagsforelesningen
 	}
 	
 	private List<Person> persons = new ArrayList<Person>();
@@ -21,8 +22,9 @@ public class CarPlate {
 	
 	public CarPlate(String plate, int i) {
 		this.seats = i;
-		this.plate = new Plate(plate);
 		System.out.println("Ny bil: "+ plate + ", med plass til " + seats + " personer.");
+		this.setPlate(plate);
+//		this.plate = new Plate(plate); // Sånn var det på mandagsforelesningen
 	}
 
 	public void printPersons() {
@@ -59,7 +61,7 @@ public class CarPlate {
 
 	public static void main(String[] args) {
 		
-		CarPlate b = new CarPlate("AA43F83", 2);
+		CarPlate b = new CarPlate("AA43583", 2);
 		b.placePerson(new Person("Ada", 23));
 		System.out.println(b);
 		
