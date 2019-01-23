@@ -5,55 +5,43 @@ import java.util.List;
 
 public class Cart {
 	
-	List<Item> cart = new ArrayList<>();
+	private List<Item> cart = new ArrayList<>();
 	
 	public List<Item> getCart() {
 		return cart;
 	}
 	
 	public void addToCart(Item item) {
-		if (contains(item)) {
-			for (Item cartItem : cart) {
-				if (cartItem.getName().equals(item.getName())) {
-					var newQty = cartItem.getQuanity() + 1;
-					cartItem.setQuantity(newQty);
-				}
-			}
-		} else {
+		Item cartItem = getItem(item);
+		if (cartItem == null) {
 			cart.add(item);
+		} else {
+			var newQty = cartItem.getQuanity() + 1;
+			cartItem.setQuantity(newQty);
 		}
 	}
 	
-	public boolean contains(Item item) {
+	public Item getItem(Item item) {
 		for (Item cartItem : cart) {
 			if (item.getName().equals(cartItem.getName())) {
-				return true;
+				return cartItem;
 			}
 		}
-		return false;
+		return null;
 	}
-	
-	//Removes item from cart and returns the total value of the item(s)
-	public double removeFromCart(Item item) {
-		if (!contains(item)) {
+
+	public void removeFromCart(Item item) {
+		if (getItem(item) == null) {
 			throw new IllegalArgumentException(item.getName() + " not in cart");
 		} else {
-			for (Item cartItem : cart) {
-				if (cartItem.getName().equals(item.getName())) {
-					var qty = cartItem.getQuanity();
-					var price = cartItem.getPrice();
-					cart.remove(cartItem);
-					return qty*price;
-				}
-			}
-			return 0.0;
+			cart.remove(item);
 		}
 	}
 	
 	public double getTotal() {
-		var tot = 0.0;
+		var tot = 0;
 		for (Item cartItem : cart) {
-			tot += cartItem.getPrice()*cartItem.getQuanity();
+			tot += cartItem.getTotalPrice();
 		}
 		return tot;
 	}

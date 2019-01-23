@@ -3,10 +3,10 @@ package shoppingapp;
 public class Item {
 	
 	private String name;
-	private double price;
+	private int price;
 	private int quantity;
 
-	public Item(String name, double price) {
+	public Item(String name, int price) {
 		if (price <= 0) {
 			throw new IllegalArgumentException("Negative price for " + name);
 		}
@@ -15,7 +15,7 @@ public class Item {
 		this.quantity = 1;
 	}
 	
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 	
@@ -32,6 +32,15 @@ public class Item {
 			throw new IllegalArgumentException("Negative quantity for " + this.name);
 		}
 		this.quantity = qty;
+	}
+	
+	public int getTotalPrice() {
+		return price * quantity;
+	}
+	
+	@Override
+	public String toString() {
+		return "" + this.quantity + ": " + this.name + " " + this.price;
 	}
 
 }

@@ -10,31 +10,13 @@ import java.util.Scanner;
 
 public class Shopping {
 
-	private User user;
 	private List<Item> availableItems;
 	private Cart cart;
 
 	public Shopping() {
-		this.user = new User("Javagutten", 1000.0);
 		this.cart = new Cart();
 		this.availableItems = loadItems();
 		loadState();
-	}
-	
-	public String getUserName() {
-		return this.user.getName();
-	}
-	
-	public double getUserBalance() {
-		return this.user.getBalance();
-	}
-	
-	public void withdrawUserBalance(double amount) {
-		this.user.withdraw(amount);
-	}
-	
-	public void depositUserBalance(double amount) {
-		this.user.deposit(amount);
 	}
 	
 	public double getCartTotal() {
@@ -53,8 +35,12 @@ public class Shopping {
 		this.cart.addToCart(item);
 	}
 	
-	public double removeFromCart(Item item) {
-		return this.cart.removeFromCart(item);
+	public void removeFromCart(Item item) {
+		this.cart.removeFromCart(item);
+	}
+	
+	public void addAvailableItem(Item item) {
+		availableItems.add(item);
 	}
 	
 	public List<Item> loadItems() {
@@ -64,7 +50,7 @@ public class Shopping {
 			while (in.hasNext()) {
 				String line = in.next();
 				String[] parts = line.split(",");
-				Item item = new Item(parts[0], Double.valueOf(parts[1]));
+				Item item = new Item(parts[0], Integer.valueOf(parts[1]));
 				items.add(item);
 			}
 			in.close();
@@ -75,11 +61,25 @@ public class Shopping {
 		}
 	}
 	
+	public void saveItems() {
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("src/shoppingapp/items.txt", "UTF-8");
+			for (Item item : availableItems) {
+				writer.println(item.getName() + "," + String.valueOf(item.getPrice()));
+			}
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void saveState() {
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter("src/shoppingapp/state.txt", "UTF-8");
-			writer.println(String.valueOf(getUserBalance()));
+			writer = new PrintWriter("src/shoppingapp/cart.txt", "UTF-8");
 			for (Item item : getCart()) {
 				writer.println(item.getName() + "," + String.valueOf(item.getPrice()) + "," + item.getQuanity());
 			}
@@ -93,13 +93,11 @@ public class Shopping {
 	
 	public void loadState() {
 		try {
-			Scanner in = new Scanner(new FileReader("src/shoppingapp/state.txt"));
-			double balance = Double.valueOf(in.next());
-			user.setBalance(balance);
+			Scanner in = new Scanner(new FileReader("src/shoppingapp/cart.txt"));
 			while (in.hasNext()) {
 				String line = in.next();
 				String[] parts = line.split(",");
-				Item item = new Item(parts[0], Double.valueOf(parts[1]));
+				Item item = new Item(parts[0], Integer.valueOf(parts[1]));
 				item.setQuantity(Integer.valueOf(parts[2]));
 				addToCart(item);
 			}
