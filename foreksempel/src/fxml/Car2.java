@@ -62,6 +62,7 @@ public class Car2 {
 	public boolean isFull() {
 		return this.seats == this.persons.size();
 	}
+	
 
 	public static void main(String[] args) {
 		
