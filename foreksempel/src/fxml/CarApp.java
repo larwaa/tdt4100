@@ -10,7 +10,7 @@ public class CarApp extends Application{
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Car");
-		primaryStage.setScene(new Scene(FXMLLoader.load(CarController.class.getResource("CarGUI.fxml"))));
+		primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("CarGUI.fxml"))));
 		primaryStage.show();
 		
 	}
