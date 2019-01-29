@@ -5,6 +5,7 @@ public class NedBetalingsKalkulator {
 	private double effectiveInterest;
 	private int loan;
 	private int downPaymentYears;
+	
 	public double getInterest() {
 		return effectiveInterest;
 	}
@@ -52,6 +53,10 @@ public class NedBetalingsKalkulator {
 	}
 	public double calculateTotalPayment() {
 		return this.calculateMonthlyPayments()*this.downPaymentYears*12;
+	}
+	
+	public boolean askForDelayedPayment(Person person) {
+		return person.getYearsOfWork() < 2 && person.getTimesDelayed()<6;
 	}
 	
 	public static void main(String[] args) {

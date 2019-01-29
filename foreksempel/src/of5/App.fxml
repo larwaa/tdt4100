@@ -6,15 +6,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="of5.AppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="684.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="of5.AppController">
    <children>
-      <TextField fx:id="effectiveInterest" layoutX="198.0" layoutY="88.0" />
-      <Label layoutX="39.0" layoutY="93.0" text="Skriv inn effektiv rente" />
-      <TextField fx:id="loan" layoutX="197.0" layoutY="123.0" />
-      <Label layoutX="40.0" layoutY="128.0" text="Skriv inn lån i kroner" />
-      <TextField fx:id="years" layoutX="197.0" layoutY="161.0" />
-      <Label layoutX="43.0" layoutY="166.0" text="Skriv inn nedbetalingsår" />
+      <TextField fx:id="effectiveInterest" layoutX="171.0" layoutY="87.0" />
+      <Label layoutX="12.0" layoutY="92.0" text="Skriv inn effektiv rente" />
+      <TextField fx:id="loan" layoutX="171.0" layoutY="122.0" />
+      <Label layoutX="14.0" layoutY="127.0" text="Skriv inn lån i kroner" />
+      <TextField fx:id="years" layoutX="170.0" layoutY="160.0" />
+      <Label layoutX="16.0" layoutY="165.0" text="Skriv inn nedbetalingsår" />
       <Button layoutX="43.0" layoutY="215.0" mnemonicParsing="false" onAction="#calculatePaymentPlan" text="Regn ut nedbetaling" />
       <TextArea fx:id="output" layoutX="215.0" layoutY="219.0" prefHeight="169.0" prefWidth="363.0" />
+      <TextField fx:id="workYears" layoutX="480.0" layoutY="87.0" />
+      <Label layoutX="347.0" layoutY="92.0" text="Jobbet antall år: " />
+      <Button layoutX="449.0" layoutY="160.0" mnemonicParsing="false" onAction="#askForDelayedPayment" text="Spør om betalingsutsettelse" />
    </children>
 </AnchorPane>
