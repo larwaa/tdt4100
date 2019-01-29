@@ -1,9 +1,9 @@
-package bilstapping;
+package fxml;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarPlate {
+public class Car2 {
 
 	private int seats;
 	private Plate plate;
@@ -12,17 +12,19 @@ public class CarPlate {
 		return plate.getPlate();
 	}
 	
-	private void setPlate(String plate) {
-		this.plate.setPlate(plate);
+	public void setPlate(String plate) {
+		this.plate = new Plate(plate);
+		this.plate.setPlate(plate);  // Sånn var det på mandagsforelesningen
 	}
 	
 	private List<Person> persons = new ArrayList<Person>();
 
 	
-	public CarPlate(String plate, int i) {
-		this.seats = i;
-		this.plate = new Plate(plate);
+	public Car2(String plate, int plasser) {
+		this.seats = plasser;
 		System.out.println("Ny bil: "+ plate + ", med plass til " + seats + " personer.");
+		this.setPlate(plate);
+//		this.plate = new Plate(plate); // Sånn var det på mandagsforelesningen
 	}
 
 	public void printPersons() {
@@ -31,9 +33,10 @@ public class CarPlate {
 		}
 	}
 
+	
 	@Override
 	public String toString() {
-		String tmp = "";
+		String tmp = "\nInfo om " + this.getPlate() + ":\n";
 		for (Person person : persons) {
 			// Bare person vil tolkes som person.toString()
 			tmp = tmp + person+"\n"; 
@@ -56,12 +59,21 @@ public class CarPlate {
 		}
 	}
 
+	public boolean isFull() {
+		return this.seats == this.persons.size();
+	}
+	
 
 	public static void main(String[] args) {
 		
-		CarPlate b = new CarPlate("AA43F83", 2);
+		Car2 b = new Car2("AA43583", 2);
 		b.placePerson(new Person("Ada", 23));
+		System.out.println(b.isFull()? "Full bil":"Plass i bilen");
+		b.placePerson(new Person("Per", 3));
+		b.placePerson(new Person("Personnavn", 13));
+		
 		System.out.println(b);
+		System.out.println(b.isFull()? "Full bil":"Plass i bilen");
 		
 		
 		

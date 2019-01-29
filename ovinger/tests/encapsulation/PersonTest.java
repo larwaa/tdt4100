@@ -90,14 +90,14 @@ public class PersonTest extends TestCase {
 			person.setEmail("ola.nordmann@ntnu.no");
 			assertEquals("ola.nordmann@ntnu.no", person.getEmail());
 		} catch (Exception e) {
-			fail("ola.nordmann@ntnu.no is a valid email");
+			fail("ola.nordmann@ntnu.no should be a valid email for " + person.getName());
 		}
 	}
 
 	private void testInvalidEmail(String invalidEmail, String existingEmail, Class<? extends Exception> ex) {
 		try {
 			person.setEmail(invalidEmail);
-			fail(invalidEmail + " is an invalid email");
+			fail(invalidEmail + " should not be accepted as the email of " + person.getName());
 		} catch (Exception e) {
 			testExceptionAndValue(e, ex, existingEmail, person.getEmail());
 		}
