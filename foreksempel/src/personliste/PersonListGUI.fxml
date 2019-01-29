@@ -9,9 +9,9 @@
    <children>
       <TextField fx:id="innnavn" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="123.0" />
       <TextField fx:id="innalder" layoutX="150.0" layoutY="14.0" prefHeight="25.0" prefWidth="50.0" />
-      <Button fx:id="innKnapp" layoutX="213.0" layoutY="14.0" mnemonicParsing="false" onAction="#handlePersonAdded" prefHeight="25.0" prefWidth="123.0" text="Legg inn person" />
+      <Button fx:id="innknapp" layoutX="213.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddPerson" prefHeight="25.0" prefWidth="123.0" text="Legg inn person" />
       <TextField fx:id="velgnavn" layoutX="14.0" layoutY="75.0" prefHeight="25.0" prefWidth="123.0" />
-      <Button fx:id="velgKnapp" layoutX="159.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleNameChosen" text="Knapp" />
+      <Button fx:id="velgknapp" layoutX="159.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleChosenName" text="Knapp" />
       <Label fx:id="utalder" layoutX="241.0" layoutY="75.0" prefHeight="25.0" prefWidth="38.0" text="Label" />
       <Label fx:id="status" layoutX="14.0" layoutY="169.0" prefHeight="17.0" prefWidth="309.0" text="Label" />
    </children>
