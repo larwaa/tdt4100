@@ -7,7 +7,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.shape.*?>
 
-<HBox spacing="15" style="-fx-padding: 10px 10px 10px 10px" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="of5.AccountController">
+<HBox spacing="15" style="-fx-padding: 10px 10px 10px 10px" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="of5forberedelse.AccountController">
 	
 	<VBox spacing="15">
 	
