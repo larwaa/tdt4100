@@ -1,4 +1,4 @@
-package of5;
+package of5forberedelse;
 
 public class Account {
 

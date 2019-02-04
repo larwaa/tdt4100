@@ -1,4 +1,4 @@
-package of5;
+package of5forberedelse;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

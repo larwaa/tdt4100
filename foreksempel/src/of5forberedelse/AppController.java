@@ -1,4 +1,4 @@
-package of5;
+package of5forberedelse;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
