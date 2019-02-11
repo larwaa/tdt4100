@@ -1,19 +1,29 @@
 package filmvisning;
 
 public class Filmvisning {
-	
+
 	private Film film;
 	private Sal sal;
 	private String tid;
 	private int pris;
 
-	public Filmvisning(Film film, Sal sal, String tid, int pris) {
-		super();
-		this.film = film;
-		this.sal = sal;
+	// En konstruktør som tar inn alt som strenger og tall. Brukes ikke i eksempelet her.
+	Filmvisning(String tittel, int alder, String nasjonalitet, String sal, String tid, int plasser, int pris) {
+		this.film = new Film(tittel, alder, nasjonalitet);
+		this.sal = new Sal(sal,plasser);
 		this.tid = tid;
 		this.pris = pris;
 	}
+
+	// Konstruktører kan være laget annerledes også... men kanskje bare internt for testbruk? Altså private
+	// men kan dermed brukes i main for debugging...
+	private Filmvisning(Film film, Sal sal, String tid, int pris) {
+		this.film = film;
+		this.sal = sal;
+		this.tid = tid;
+		this.pris = pris;		
+	}
+
 
 
 
