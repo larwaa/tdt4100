@@ -1,25 +1,30 @@
 package mappeeksempel;
 
 public class File {
-	
+
 	private Folder parentFolder;
 	private String name;
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public Folder getParentFolder() {
 		return parentFolder;
 	}
 
 	public File(String name, Folder parentFolder) {
 		this.name = name;
-		if (parentFolder == null)
-			throw new IllegalAccessException("En fil må være i en folder...")
-		this.parentFolder = parentFolder;
+		if (parentFolder == null) {
+			throw new IllegalArgumentException("A file must be in a folder");
+		}
+		this.parentFolder = parentFolder;		
+		// Men vi må jo oppdatere andre veien også, så folderen vet at den har fått en fil!
+		// SKal dette gjøres i en annen plass i systemet, eller skal det gjøres fra File.java?
+		// denne skal utvides til å vise hele stien fra rot-noden og ned
+		// mulig løsning: parentFolder.addFile(this);
 	}
-	
-	
+
+
 
 }
