@@ -34,6 +34,14 @@ public class File {
 	}
 
 
-
+	public void move(Folder targetFolder) {
+		if (parentFolder != null) {
+			parentFolder.removeFile(this);
+		}
+		if (targetFolder != null) {
+			targetFolder.addFile(this);
+		}
+		parentFolder = targetFolder;
+	}
 
 }

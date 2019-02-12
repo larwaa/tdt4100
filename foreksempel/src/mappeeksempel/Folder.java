@@ -35,6 +35,10 @@ public class Folder {
 		this.files.add(file);
 	}
 
+	public void removeFile(File file) {
+		this.files.remove(file);
+	}
+
 	@Override
 	public String toString() {
 		if (parentFolder == null)
@@ -42,12 +46,15 @@ public class Folder {
 		return parentFolder + name + "/";
 	}
 
+	public void move(Folder folder) {
+		
+	}
+	
 	public static void main(String[] args) {
 
 		Folder root = new Folder("Rot",null);
 		File rotfil = new File("rotfil.txt",root);
 		Folder tmp = new Folder("tmp",root);
-		root.printContent();
 		System.out.println("\n");
 		File tmpfil = new File("tmpfil.txt",tmp);
 		Folder users = new Folder("users",root);
@@ -56,8 +63,10 @@ public class Folder {
 		File egenfil2 = new File("egenfil2.txt", borgeh);
 		Folder div = new Folder("div",root);
 		root.printContent();
-		//		users.move(borgeh);
-		//		root.printContent();
+		System.out.println("\n");
+		egenfil2.move(root);
+		root.printContent();
 
 	}
+
 }
