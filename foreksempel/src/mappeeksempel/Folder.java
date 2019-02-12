@@ -46,7 +46,31 @@ public class Folder {
 		return parentFolder + name + "/";
 	}
 
-	public void move(Folder folder) {
+	boolean contains(Folder folder) {
+		while (folder != null) {
+			if (folder == this) {
+				System.out.println("Funnet "+this);
+				return true;
+			}
+			folder = folder.parentFolder;
+		}
+		return false;
+	}
+	
+	
+	public void move(Folder targetFolder) {
+		System.out.println("Skal flytte /"+name+" fra "+parentFolder+" til "+targetFolder);
+		if (targetFolder != null && this.contains(targetFolder)) {
+			throw new IllegalArgumentException("Du forsøker å lage en uendelig løkke...");
+		}
+		if (parentFolder != null)
+			parentFolder.subFolders.remove(this);
+		if (targetFolder != null)
+			targetFolder.subFolders.add(this);
+		parentFolder = targetFolder;
+		
+		
+		
 		
 	}
 	
@@ -58,14 +82,16 @@ public class Folder {
 		System.out.println("\n");
 		File tmpfil = new File("tmpfil.txt",tmp);
 		Folder users = new Folder("users",root);
+		Folder users2 = new Folder("users",root);
 		Folder borgeh = new Folder("borgeh",users);
 		File egenfil1 = new File("egenfil.txt", borgeh);
 		File egenfil2 = new File("egenfil2.txt", borgeh);
 		Folder div = new Folder("div",root);
-		root.printContent();
+//		root.printContent();
 		System.out.println("\n");
-		egenfil2.move(root);
+//		users.move(borgeh);
 		root.printContent();
+		System.out.println(borgeh.toString());
 
 	}
 
