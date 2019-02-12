@@ -23,7 +23,16 @@ public class File {
 		// SKal dette gjøres i en annen plass i systemet, eller skal det gjøres fra File.java?
 		// denne skal utvides til å vise hele stien fra rot-noden og ned
 		// mulig løsning: parentFolder.addFile(this);
+		parentFolder.addFile(this);
 	}
+	
+	@Override
+	public String toString() {
+		if (parentFolder != null) // sikkerhetssjekk, unødvendig inntil videre.
+			return parentFolder.toString() + name;
+		return name;
+	}
+
 
 
 
