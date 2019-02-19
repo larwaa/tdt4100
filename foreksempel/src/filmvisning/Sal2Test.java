@@ -21,6 +21,4 @@ public class Sal2Test {
 	public void testSalKonstruktoerTomtNavn() {
 		Sal2 sal = new Sal2("", 250);
 	}
-
-
 }

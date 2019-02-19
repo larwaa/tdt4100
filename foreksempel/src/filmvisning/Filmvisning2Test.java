@@ -111,10 +111,10 @@ public class Filmvisning2Test {
 		Film2 film2 = new Film2("The Hangover", 15, "USA");
 		Filmvisning2 fv = new Filmvisning2(film, sal, 1, 85);
 		
-		fv.setFilm(film2);
+		fv.setFilm(film2); // film skal nå ikke ha noen visninger, film2 én.
 		
 		assertEquals(fv, film2.getVisningPaaTid(1)); // Henter filmen på tidspunkt 1
-		assertEquals(0, film.getAntallVisninger());
+		assertEquals(0, film.getAntallVisninger()); 
 	}
 
 }

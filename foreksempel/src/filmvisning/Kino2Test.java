@@ -3,6 +3,7 @@ package filmvisning;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class Kino2Test {
@@ -10,6 +11,8 @@ public class Kino2Test {
 	Kino2 kino;
 	
 	@Before
+	// Dette er det som kjøres forut for hver test. Det betyr at når
+	// hver test kjøres kan en forvente at dette er tilstanden.
 	public void setUp() throws Exception {
 		kino = new Kino2();
 		Film2 f1 = new Film2("Alexander",15,"USA");
@@ -26,14 +29,22 @@ public class Kino2Test {
 		kino.addVisning(fv3);
 	}
 
-	@Test
-	public void testFaarFremSalNavn() {
-		assertEquals("Nova 3", kino.visninger.get(0).getSal().getNavn());
+	@Test // Lagt inn tre filmer i setUp
+	public void testAntallVisninger() {
+		assertEquals(3, kino.antallVisninger());
+	}
+	
+	@Test 
+	public void testFaarFremFilmNavn() {
+		assertEquals("Alexander", kino.getVisning("Nova 3",1).getFilm().
+				getFilmtittel());
+		assertEquals("Bad Santa", kino.getVisning("Prinsen 2", 3).
+				getFilm().getFilmtittel()); // Phew!
 	}
 
 	@Test
 	public void testFaarFremFilmNasjonalitet() {
-		assertEquals("USA", kino.visninger.get(1).getFilm().getNasjonalitet());
+		assertEquals("USA", kino.getVisning("Prinsen 4", 1).getFilm().getNasjonalitet());
 	}
 	
 	@Test
@@ -46,10 +57,10 @@ public class Kino2Test {
 		}
 	}
 	
-	@Test
+	@Test // Fjerner to visninger, da er det bare én igjen.
 	public void testRemoveVisning() {
 		kino.removeFilm("Alexander");
-		assertEquals(1, kino.visninger.size());
-		assertEquals("Bad Santa", kino.visninger.get(0).getFilm().getFilmtittel());
+		assertEquals(1, kino.antallVisninger());
+		assertEquals("Bad Santa", kino.getVisning(0).getFilm().getFilmtittel());
 	}
 }
