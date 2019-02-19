@@ -8,6 +8,9 @@ public class Film2 {
 	private String filmtittel;
 	private int aldersgrense;
 	private String nasjonalitet;
+
+	// Et ekte kinosystem hadde ikke trengt denne visningslisten,
+	// det hadde en løst mer elegant.
 	List<Filmvisning2> visninger = new ArrayList<>();
 	
 	public Film2(String filmtittel, int aldersgrense, String nasjonalitet) {

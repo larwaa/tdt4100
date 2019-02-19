@@ -34,7 +34,7 @@ public class Sal2 {
 		for (Filmvisning2 filmvisning2 : visninger) {
 			if (filmvisning2.getTid() == nyVisning.getTid()) {
 				throw new IllegalArgumentException(this.navn + "har allerede booket "+
-			filmvisning2.getFilm().getFilmtittel() + " klokken " + nyVisning.getTid());
+			filmvisning2.getFilm().getFilmtittel() + " klokka " + nyVisning.getTid());
 			}
 		}
 		visninger.add(nyVisning);

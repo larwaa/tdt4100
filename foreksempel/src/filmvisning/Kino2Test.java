@@ -53,8 +53,15 @@ public class Kino2Test {
 		Film2 f1 = new Film2("Alexander",15,"USA");
 		try {
 			kino.addVisning(new Filmvisning2(f1, s1, 4, 85));
+			kino.addVisning(new Filmvisning2(f1, s1, 4, 85));
+			fail("Overbooking av sal er mulig.");
+		} catch (IllegalArgumentException e) {
+			// Ikke gjøre noe, det er denne vi vil ha.
 		} catch (Exception e) {
+			// Unntak av typen vi ikke skal ha kontroll over må utløses.
+			throw e;
 		}
+		
 	}
 	
 	@Test // Fjerner to visninger, da er det bare én igjen.

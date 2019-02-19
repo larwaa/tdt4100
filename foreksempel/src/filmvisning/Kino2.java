@@ -7,7 +7,7 @@ import java.util.List;
 public class Kino2 {
 	// Aldri gi andre klasser innblikk i dine collections. Du må lage
 	// gettere som gir enten element på index eller en iterator.
-	// Derav private, og at en må spørre pent.
+	// Derav private, og at en må spørre pent...
 	private List<Filmvisning2> visninger = new ArrayList<>();
 
 	public void addVisning(Filmvisning2 visning) {

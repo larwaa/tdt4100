@@ -2,10 +2,6 @@ package filmvisning;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.junit.Test;
 
 public class Filmvisning2Test {
@@ -17,7 +13,7 @@ public class Filmvisning2Test {
 		Sal2 sal = new Sal2("Nova 1", 250);
 		Film2 film = new Film2("Bad Santa", 11, "USA");
 		Filmvisning2 fv = new Filmvisning2(film, sal, 1, 85);
-		//		sal.addVisning(fv);
+		//		sal.addVisning(fv); // Oppdatering gjøres i konstruktøren!
 	}
 
 	@Test

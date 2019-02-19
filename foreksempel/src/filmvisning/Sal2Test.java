@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class Sal2Test {
+	// Basistestene som bare tester det en kan uten å involvere andre klasser
 
 	@Test
 	public void testSalnavnogAlderUthenting() {

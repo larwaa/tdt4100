@@ -5,8 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class Film2Test {
+	
+	// Tester bare de tingene som ikke trenger å knytte til seg andre
+	// klasser. De blir testet fra utsiden.
 
-	@Test
+	@Test // Solskinnshistorietest
 	public void testNavnAldersgrenseogLandUthenting() {
 		Film2 f1 = new Film2("Alexander",15,"USA");
 		assertEquals("Alexander", f1.getFilmtittel());
@@ -15,7 +18,7 @@ public class Film2Test {
 	}
 
 	// Ulike måter å teste exceptions under:
-	@Test 
+	@Test  // Regnvær, også de under.
 	public void testFeilNavn() {
 
 		try {
