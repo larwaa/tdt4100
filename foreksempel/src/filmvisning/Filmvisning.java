@@ -17,7 +17,7 @@ public class Filmvisning {
 
 	// Konstruktører kan være laget annerledes også... men kanskje bare internt for testbruk? Altså private
 	// men kan dermed brukes i main for debugging...
-	private Filmvisning(Film film, Sal sal, String tid, int pris) {
+	Filmvisning(Film film, Sal sal, String tid, int pris) {
 		this.film = film;
 		this.sal = sal;
 		this.tid = tid;

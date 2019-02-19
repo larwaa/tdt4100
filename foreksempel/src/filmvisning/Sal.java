@@ -13,11 +13,16 @@ public class Sal {
 
 
 	public Sal(String navn, int plasser) {
-		super();
+		
+		if (navn.length() == 0) {
+			throw new IllegalArgumentException("Salen må ha et navn.");
+		}
+		if (plasser < 1) {
+			throw new IllegalArgumentException("Salen må ha plass til folk. Seriøst..");
+		}
 		this.navn = navn;
 		this.plasser = plasser;
 	}
-	
 	
 	
 	
