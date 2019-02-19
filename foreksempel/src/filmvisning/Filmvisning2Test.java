@@ -48,8 +48,8 @@ public class Filmvisning2Test {
 		Film2 film = new Film2("Bad Santa", 11, "USA");
 		Filmvisning2 fv1 = new Filmvisning2(film, sal, 1, 85);
 		Filmvisning2 fv2 = new Filmvisning2(film, sal, 2, 85);
-		assertEquals(fv1, sal.getVisningPåTid(1));
-		assertEquals(fv2, sal.getVisningPåTid(2));
+		assertEquals(fv1, sal.getVisningPaaTid(1));
+		assertEquals(fv2, sal.getVisningPaaTid(2));
 	}
 
 	@Test 
@@ -59,8 +59,8 @@ public class Filmvisning2Test {
 		Film2 film = new Film2("Bad Santa", 11, "USA");
 		Filmvisning2 fv1 = new Filmvisning2(film, sal, 1, 85);
 		Filmvisning2 fv2 = new Filmvisning2(film, sal2, 2, 85);
-		assertEquals(fv1, film.getVisningPåTid(1));
-		assertEquals(fv2, film.getVisningPåTid(2));
+		assertEquals(fv1, film.getVisningPaaTid(1));
+		assertEquals(fv2, film.getVisningPaaTid(2));
 	}
 
 	@Test
@@ -68,7 +68,7 @@ public class Filmvisning2Test {
 		Sal2 sal = new Sal2("Nova 1", 250);
 		Film2 film = new Film2("Bad Santa", 11, "USA");
 		Filmvisning2 fv = new Filmvisning2(film, sal, 1, 85);
-		assertEquals(fv, sal.getVisningPåTid(1));
+		assertEquals(fv, sal.getVisningPaaTid(1));
 	}
 
 	@Test 
@@ -76,7 +76,7 @@ public class Filmvisning2Test {
 		Sal2 sal = new Sal2("Nova 1", 250);
 		Film2 film = new Film2("Bad Santa", 11, "USA");
 		Filmvisning2 fv = new Filmvisning2(film, sal, 1, 85);
-		assertEquals(null, sal.getVisningPåTid(2));
+		assertEquals(null, sal.getVisningPaaTid(2));
 	}
 
 	@Test
@@ -113,7 +113,7 @@ public class Filmvisning2Test {
 		
 		fv.setFilm(film2);
 		
-		assertEquals(fv, film2.getVisningPåTid(1)); // Henter filmen på tidspunkt 1
+		assertEquals(fv, film2.getVisningPaaTid(1)); // Henter filmen på tidspunkt 1
 		assertEquals(0, film.getAntallVisninger());
 	}
 
