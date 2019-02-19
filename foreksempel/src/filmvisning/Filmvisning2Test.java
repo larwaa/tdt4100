@@ -64,7 +64,7 @@ public class Filmvisning2Test {
 	}
 
 	@Test
-	public void testReturnerFilmPåTidspunkt() {
+	public void testReturnerFilmPaaTidspunkt() {
 		Sal2 sal = new Sal2("Nova 1", 250);
 		Film2 film = new Film2("Bad Santa", 11, "USA");
 		Filmvisning2 fv = new Filmvisning2(film, sal, 1, 85);
@@ -72,7 +72,7 @@ public class Filmvisning2Test {
 	}
 
 	@Test 
-	public void testReturnerFilmPåTomtTidspunkt() {
+	public void testReturnerFilmPaaTomtTidspunkt() {
 		Sal2 sal = new Sal2("Nova 1", 250);
 		Film2 film = new Film2("Bad Santa", 11, "USA");
 		Filmvisning2 fv = new Filmvisning2(film, sal, 1, 85);

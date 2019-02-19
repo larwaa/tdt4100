@@ -27,12 +27,12 @@ public class Kino2Test {
 	}
 
 	@Test
-	public void testFårFremSalNavn() {
+	public void testFaarFremSalNavn() {
 		assertEquals("Nova 3", kino.visninger.get(0).getSal().getNavn());
 	}
 
 	@Test
-	public void testFårFremFilmNasjonalitet() {
+	public void testFaarFremFilmNasjonalitet() {
 		assertEquals("USA", kino.visninger.get(1).getFilm().getNasjonalitet());
 	}
 	

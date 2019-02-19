@@ -13,12 +13,12 @@ public class Sal2Test {
 	}
 
 	@Test (expected = IllegalArgumentException.class)
-	public void testSalKonstruktørTomtPlasser() {
+	public void testSalKonstruktoerNullPlasser() {
 		Sal2 sal = new Sal2("Nova 1", 0);
 	}
 
 	@Test (expected = IllegalArgumentException.class)
-	public void testSalKonstruktørTomtNavn() {
+	public void testSalKonstruktoerTomtNavn() {
 		Sal2 sal = new Sal2("", 250);
 	}
 
