@@ -5,7 +5,7 @@ package personcomparing;
 //interface 
 import java.util.*; 
 
-class Person implements Comparable<Person> { 
+class Person { 
 	String fornavn; 
 	String etternavn;
 	int alder; 
@@ -30,12 +30,6 @@ class Person implements Comparable<Person> {
 	{ 
 		return this.fornavn + " " + this.etternavn + "\t"+ this.alder; 
 	}
-
-	@Override
-	// Standard sortering er etter navn
-	public int compareTo(Person o) {
-		// Kod
-	} 
 
 
 	public static void main (String[] args) 
