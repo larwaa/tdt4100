@@ -44,7 +44,9 @@ class Person implements Comparable<Person> {
 		}
 
 		// Standard sammenlikner er implementert med "implements Comparable"
-		Collections.sort(personer); 
+		// Collection sin statiske metode gjennomfører selve sorteringen, men
+		// DU må fortelle den hva som er rett mhp mer og mindre verd.
+		Collections.sort(personer);  
 		System.out.println("\nSortert etter navn"); 
 		for (Person person : personer) {
 			System.out.println(person);
