@@ -2,46 +2,43 @@ package mappeeksempel;
 
 public class File {
 
-	private Folder parentFolder;
 	private String name;
+	
+	private Folder parent;
+
+	public File(String name, Folder parent) {
+		setName(name);
+		if (parent == null) {
+			throw new IllegalArgumentException("A file must be in a folder");
+		}
+		this.parent = parent;
+		parent.addFile(this);
+	}
+
+	@Override
+	public String toString() {
+		return parent.toString() + "/" + name;
+	}
 
 	public String getName() {
 		return name;
 	}
-
-	public Folder getParentFolder() {
-		return parentFolder;
-	}
-
-	public File(String name, Folder parentFolder) {
-		this.name = name;
-		if (parentFolder == null) {
-			throw new IllegalArgumentException("A file must be in a folder");
-		}
-		this.parentFolder = parentFolder;		
-		// Men vi må jo oppdatere andre veien også, så folderen vet at den har fått en fil!
-		// SKal dette gjøres i en annen plass i systemet, eller skal det gjøres fra File.java?
-		// denne skal utvides til å vise hele stien fra rot-noden og ned
-		// mulig løsning: parentFolder.addFile(this);
-		parentFolder.addFile(this);
-	}
 	
-	@Override
-	public String toString() {
-		if (parentFolder != null) // sikkerhetssjekk, unødvendig inntil videre.
-			return parentFolder.toString() + name;
-		return name;
+	public void setName(String name) {
+		if (name == null) {
+			throw new IllegalArgumentException("Name cannot be null");
+		}
+		if (name.length() == 0) {
+			throw new IllegalArgumentException("Name cannot be empty");
+		}
+		this.name = name;
 	}
 
-
-	public void move(Folder targetFolder) {
-		if (parentFolder != null) {
-			parentFolder.removeFile(this);
-		}
-		if (targetFolder != null) {
-			targetFolder.addFile(this);
-		}
-		parentFolder = targetFolder;
+	public static void main(String[] args) {
+		Folder teaching = new Folder("TEACHING", null);
+		Folder folder105 = new Folder("105", teaching);
+		Folder teaching2 = new Folder(null, folder105);
+		File grades = new File("Grades", folder105);
+		System.out.println(grades);
 	}
-
 }
