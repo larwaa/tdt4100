@@ -34,17 +34,7 @@ class Person implements Comparable<Person> {
 	@Override
 	// Standard sortering er etter navn
 	public int compareTo(Person o) {
-		int sort = this.etternavn.compareTo(o.etternavn);  
-		if ( sort > 0 ) {
-			return 1;
-		}
-		else if (sort < 0) {
-			return -1;
-		}
-		else {
-			// Likt etternavn, sorter på foravn
-			return this.fornavn.compareTo(o.fornavn);
-		}
+		// Kod
 	} 
 
 
