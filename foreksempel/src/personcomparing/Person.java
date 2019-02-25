@@ -9,7 +9,6 @@ class Person implements Comparable<Person> {
 	String fornavn; 
 	String etternavn;
 	int alder; 
-
 	public int getAlder() {
 		return alder;
 	}
