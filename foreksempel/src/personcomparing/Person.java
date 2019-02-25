@@ -5,7 +5,7 @@ package personcomparing;
 //interface 
 import java.util.*; 
 
-class Person { 
+class Person implements Comparable<Person> { 
 	String fornavn; 
 	String etternavn;
 	int alder; 
@@ -60,5 +60,19 @@ class Person {
 
 
 	}
+
+	@Override
+	public int compareTo(Person o) {
+		int sort = this.etternavn.compareTo(o.etternavn);
+				if (sort > 0) {
+					return 1;
+				}
+				else if (sort < 0) {
+					return -1;
+				}
+				else {
+					return this.fornavn.compareTo(o.fornavn);
+	}
+}
 } 
 
