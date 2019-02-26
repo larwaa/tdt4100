@@ -8,7 +8,7 @@ public class Løkker {
 
 	public static void main(String[] args) {
 		
-		Løkker tull = new Løkker();
+		Løkker løkke = new Løkker();
 		List<Character> liste = new ArrayList<>();
 		liste.add('a');
 		liste.add('b');
@@ -18,9 +18,9 @@ public class Løkker {
 		
 		char[] charArray = { 'g', 'h', 'i'}; 
 
-		tull.skrivut(liste, new ListCharPrinter());
-		tull.skrivut(streng, new StringCharPrinter());
-		tull.skrivut(charArray, new CharArrayPrinter());	
+		løkke.skrivut(liste, new ListCharPrinter());
+		løkke.skrivut(streng, new StringCharPrinter());
+		løkke.skrivut(charArray, new CharArrayPrinter());	
 	}
 
 	private void skrivut(Object ob, LøkkePrintInterface pI) {
