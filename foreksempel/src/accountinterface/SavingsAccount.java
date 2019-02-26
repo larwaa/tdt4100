@@ -1,9 +1,15 @@
 package accountinterface;
 
 public class SavingsAccount implements Account{
-	int balance;
-	int withdrawals;
-	int maxWithdrawals = 2;
+	@Override
+	public String toString() {
+		return "SavingsAccount med " + balance + " kroner tilgjengelig, gjenværende uttak: " + 
+	(maxWithdrawals - withdrawals);
+	}
+
+	private int balance;
+	private int withdrawals;
+	private int maxWithdrawals = 2;
 	
 	@Override
 	public int getBalance() {
@@ -19,11 +25,10 @@ public class SavingsAccount implements Account{
 	@Override
 	public int withdraw(int amount) {
 		if (withdrawals == maxWithdrawals) // Maks 2 uttak (
-			return 0;
+			throw new IllegalArgumentException("Maks antall uttak gjort.");
 		if ((balance - amount) >= -1000) {
 			balance -= amount;
 			withdrawals ++;
-			System.out.println(withdrawals);
 			return amount;
 		}
 		return 0;

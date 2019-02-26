@@ -1,7 +1,12 @@
 package accountinterface;
 
 public class BonusAccount implements Account{
-	int balance;
+	private int balance;
+	private int maxCredit = -1000;
+	
+	public void setCredit(int kreditt) {
+		this.maxCredit = kreditt;
+	}
 	
 	@Override
 	public int getBalance() {
@@ -15,12 +20,17 @@ public class BonusAccount implements Account{
 	}
 
 	@Override
+	public String toString() {
+		return "BonusAccount med " + balance + " kroner tilgjengelig.";
+	}
+
+	@Override
 	public int withdraw(int amount) {
-		if ((balance - amount) >= -1000) { // 1000 i maks kreditt
+		if ((balance - amount) >= maxCredit) { // 1000 i maks kreditt
 			balance -= amount;
 			return amount;
 		}
-		return 0;
+		throw new IllegalArgumentException("Ikke nok kreditt.");
 	}
 
 }

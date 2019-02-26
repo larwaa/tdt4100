@@ -63,7 +63,7 @@ class Person implements Comparable<Person> {
 	}
 
 	@Override
-	public int compareTo(Person o) {
+	public int compareTo(Person o) { // pga implements Comparable
 		int sort = this.etternavn.compareTo(o.etternavn);
 				if (sort > 0) {
 					return 1;

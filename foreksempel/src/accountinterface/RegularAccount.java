@@ -2,7 +2,12 @@ package accountinterface;
 
 public class RegularAccount implements Account {
 
-	int balance;
+	@Override
+	public String toString() {
+		return "RegularAccount med " + balance + " kroner tilgjengelig.";
+	}
+
+	private int balance;
 	
 	@Override
 	public int getBalance() {
