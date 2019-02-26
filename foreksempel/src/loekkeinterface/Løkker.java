@@ -18,7 +18,7 @@ public class Løkker {
 		
 		char[] charArray = { 'g', 'h', 'i'}; 
 
-		tull.skrivut(liste, new ListCharPrint());
+		tull.skrivut(liste, new ListCharPrinter());
 		tull.skrivut(streng, new StringCharPrinter());
 		tull.skrivut(charArray, new CharArrayPrinter());	
 	}
