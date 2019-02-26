@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LøkkerOld {
+public class LoekkerOld {
 
 	public static void main(String[] args) {
 
-		Løkker tull = new Løkker();
+		Loekker tull = new Loekker();
 
 		List<Character> liste = new ArrayList<>();
 		liste.add('a');
