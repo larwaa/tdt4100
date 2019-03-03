@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
 
+import filmvisning.Film2;
+
 public class AccountTest {
 
 	Account regular, bonus, savings;
@@ -36,13 +38,20 @@ public class AccountTest {
 		assertEquals(-300, bonus.getBalance());
 		}
 	
-	@Test
+	@Test 
 	public void testSavings() {
 		savings.deposit(1000);
 		savings.withdraw(300);
 		savings.withdraw(300);
 		// Kan ikke ta ut penger selv med kreditt, maks antall uttak
-		assertEquals(0, savings.withdraw(800));
+		try {
+			savings.withdraw(800);
+		} catch (IllegalArgumentException e) {
+			System.out.println("Forventet utløsning av IllegalArgumentException.");
+		} catch (Exception e) {
+			fail();
+		}
+
 		// Har da igjen 400 på konto
 		assertEquals(400, savings.getBalance());
 	}
