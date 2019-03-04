@@ -2,15 +2,21 @@ package person3comparators;
 public class Person {
 	
     private String givenName, familyName;
- 
-    public String getGivenName() {
+    private int age;
+    
+    public int getAge() {
+		return age;
+	}
+
+	public String getGivenName() {
         return givenName;
     }
  
-	public Person(String givenName, String familyName) {
+	public Person(String givenName, String familyName, int age) {
 		super();
 		this.givenName = givenName;
 		this.familyName = familyName;
+		this.age = age;
 	}
 
 	public String getFamilyName() {
@@ -28,7 +34,7 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [givenName=" + givenName + ", familyName=" + familyName + "]";
+		return givenName + " " + familyName +"("+age+")";
 	}
 
 	public Person(String name) {
