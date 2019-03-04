@@ -1,4 +1,4 @@
-package person4comparators;
+package person3comparators;
 import java.util.Comparator;
  
 public class NameComparator implements Comparator<Person> {

@@ -1,4 +1,4 @@
-package person4comparators;
+package person3comparators;
 public class Person {
 	
     private String givenName, familyName;

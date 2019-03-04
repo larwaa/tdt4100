@@ -1,4 +1,4 @@
-package person4comparators;
+package person3comparators;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,19 +27,8 @@ public class Main {
 		});
 		System.out.println(players);
 		
-		// Tredje sortering gjøres ved å lage en anonym indreklasse:
-		Collections.sort(players, new Comparator<Person>() {
-
-			@Override
-			public int compare(Person p1, Person p2) {
-				return (p1.getFamilyName()+ " " + p1.getGivenName()).
-						compareTo(p2.getFamilyName()+" "+p2.getGivenName());
-			}
-
-		});
-		System.out.println(players);        
 		
-		// Fjerde variant gjøres ved å bruke en lambdafunksjon.
+		// Tredje variant gjøres ved å bruke en lambdafunksjon.
 		// Dette er funksjonelle grensesnitt.
 		Collections.sort(players, (p1, p2) -> {
 			return p1.getGivenName().
