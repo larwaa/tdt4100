@@ -12,6 +12,8 @@ public class Main {
 		persons.add(new Person("Camilla", "Hansen", 112));
 
 		// Første sortering gjøres med en ekstern Comparator:
+		// Dette kaller roter med rekkefølgen i listen persons selv
+		// om en ikke har noe persons = osv, som liste.sort() i python.
 		Collections.sort(persons, new NameComparator());
 		System.out.println("Ekstern fnavn+enavn alfabetisk:\t"+persons);
 
