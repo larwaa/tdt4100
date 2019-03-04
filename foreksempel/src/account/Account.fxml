@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox prefHeight="387.0" prefWidth="602.0" spacing="15" style="-fx-padding: 10px 10px 10px 10px" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="account.AccountController">
+   <HBox prefHeight="367.0" prefWidth="287.0">
+      <children>
+   	
+       	<VBox prefHeight="367.0" prefWidth="342.0" spacing="15" style="-fx-border-color: transparent black transparent transparent; -fx-padding: 0px 10px 0px 0px; -fx-border-width: 2;">
+   		    <HBox spacing="10">
+   		    	<Label prefHeight="17.0" prefWidth="48.0" text="Balance" />
+   		    	<TextField fx:id="newAccountBalanceTextField" />
+   		    </HBox>
+   		    
+   		    <HBox spacing="10">
+   		    	<Label prefHeight="17.0" prefWidth="48.0" text="Interest" />
+   		    	<TextField fx:id="newAccountInterestRateTextField" />
+   		    </HBox>
+       		
+             		<Button onAction="#handleNewAccount" text="New account" />
+            <HBox spacing="10">
+               <children>
+                  <Label text="Filename" />
+                  <TextField fx:id="getFilenameTextField" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#handleGetExistingAccount" text="Get existing account" />
+            <Label fx:id="setFileInformationLabel" prefHeight="17.0" prefWidth="277.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: grey transparent transparent transparent; -fx-padding: 10px 0px 0px 0px; -fx-border-style: dotted;">
+               <children>
+                  <Label text="Filename" />
+                  <TextField fx:id="getFilenameTextField2">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#handleSaveAccount" text="Save account to file" />
+            <Label fx:id="setFileSavedInformationLabel" prefHeight="17.0" prefWidth="269.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" />  
+   	    </VBox>
+      </children>
+   </HBox>
+	
+	<VBox prefHeight="367.0" prefWidth="290.0" spacing="15">
+	    
+	    <Text text="Account">
+	    	<font>
+                <Font name="Arial Black" size="16.0" />
+            </font>
+	    </Text>	    
+	    
+	    <HBox spacing="10">
+	    	<Label text="Balance" />
+	    	<TextField fx:id="getBalanceTextField" />
+	    </HBox>
+	    
+		
+		<HBox spacing="10" style="-fx-border-color: transparent transparent gray transparent; -fx-padding: 0px 0px 10px 0px; -fx-border-style: dotted;">
+	    	<Label text="Interest" />
+	    	<TextField fx:id="getInterestRateTextField" />
+	    </HBox>
+	    
+	    <HBox spacing="10">
+	    	<TextField fx:id="depositTextField" />
+	    	<Button fx:id="depositButton" onAction="#handleDeposit" text="Deposit" />
+	    </HBox>
+	    
+	    <HBox spacing="10">
+         	<TextField fx:id="withdrawTextField" />
+         	<Button fx:id="withdrawButton" onAction="#handleWithdrawal" text="Withdraw" />
+	    </HBox>
+	    
+	    <HBox spacing="10">
+	    	<TextField fx:id="setInterestRateTextField" />
+	    	<Button fx:id="setInterestRateButton" onAction="#handleSetInterestRate" text="Set new interest rate" />
+	    </HBox>
+	    
+    	<Button fx:id="addInterestButton" onAction="#handleAddInterest" text="Add interest" />
+      <Label fx:id="setAccountInformationLabel" prefHeight="17.0" prefWidth="301.0" />
+		
+	</VBox>
+</HBox>
