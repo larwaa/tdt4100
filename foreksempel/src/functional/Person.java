@@ -1,26 +1,32 @@
 package functional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Person {
 
 	public final static char MALE_GENDER = 'M';
 	public final static char FEMALE_GENDER = 'F';
-	
+
 	private final char gender;
-	private String name;
+	private final String name;
 	private Person mother, father;
-	private ArrayList<Person> children;
-	
-	private static boolean isValidGender(char gender) {
+	private final ArrayList<Person> children;
+
+	@Override
+	public String toString() {
+		return "Person [gender=" + gender + ", name=" + name + "]";
+	}
+
+	private static boolean isValidGender(final char gender) {
 		return gender == MALE_GENDER || gender == FEMALE_GENDER;
 	}
-	
-	public Person(String name, char gender) {
+
+	public Person(final String name, final char gender) {
 		this.name = name;
 		if (! isValidGender(gender)) {
 			throw new IllegalArgumentException(gender + " is not a valid gender");
-		}			
+		}
 		this.gender = gender;
 		this.children = new ArrayList<Person>();
 	}
@@ -33,16 +39,16 @@ public class Person {
 	 * Below is a complete encapsulation of the mother, father and children fields,
 	 * that ensures consistent values
 	 */
-	
+
 	public int getChildCount() {
 		return children.size();
 	}
-	
-	public Person getChild(int index) {
+
+	public Person getChild(final int index) {
 		return children.get(index);
 	}
-	
-	public void addChild(Person child) {
+
+	public void addChild(final Person child) {
 		// only add if necessary
 		if (children.contains(child)) {
 			return;
@@ -55,7 +61,7 @@ public class Person {
 		}
 	}
 
-	public void removeChild(Person child) {
+	public void removeChild(final Person child) {
 		// only remove if necessary
 		if (! children.contains(child)) {
 			return;
@@ -68,24 +74,24 @@ public class Person {
 			child.setMother(null);
 		}
 	}
-	
+
 	public Person getMother() {
 		return mother;
 	}
 
 
-	private void checkGender(Person person, char gender) {
+	private void checkGender(final Person person, final char gender) {
 		if (person != null && person.gender != gender) {
 			throw new IllegalArgumentException("The gender is " + person.gender + " but should have been " + gender);
 		}
 	}
-	private void checkOwnParent(Person person, Person parent) {
+	private void checkOwnParent(final Person person, final Person parent) {
 		if (person == parent) {
 			throw new IllegalArgumentException("A person cannot be its own parent");
 		}
 	}
 
-	public void setMother(Person mother) {
+	public void setMother(final Person mother) {
 		checkGender(mother, FEMALE_GENDER);
 		checkOwnParent(this, mother);
 		if (mother == this.mother) {
@@ -106,7 +112,7 @@ public class Person {
 		return father;
 	}
 
-	public void setFather(Person father) {
+	public void setFather(final Person father) {
 		checkGender(father, MALE_GENDER);
 		checkOwnParent(this, father);
 		if (father == this.father) {
@@ -123,7 +129,7 @@ public class Person {
 		}
 	}
 
-	private static boolean isAncestorOf(Person ancestor, Person person) {
+	private static boolean isAncestorOf(final Person ancestor, final Person person) {
 		if (person == null) {
 			return false;
 		} else if (ancestor == person) {
@@ -131,8 +137,24 @@ public class Person {
 		}
 		return isAncestorOf(ancestor, person.father) || isAncestorOf(ancestor, person.mother);
 	}
-	
-	public boolean isAncestorOf(Person person) {
+
+	public boolean isAncestorOf(final Person person) {
 		return isAncestorOf(this, person.father) || isAncestorOf(this, person.mother);
+	}
+
+	//
+
+	private LocalDate birthday;
+
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(final LocalDate birthday) {
+		this.birthday = birthday;
+	}
+
+	public int getAge() {
+		return LocalDate.now().getYear() - birthday.getYear();
 	}
 }
