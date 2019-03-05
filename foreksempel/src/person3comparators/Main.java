@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Main {
 	public static void main(String[] args) {
@@ -52,6 +53,11 @@ public class Main {
 		Collections.sort(persons, (p1, p2) -> {
 			return p1.getAge()- p2.getAge();
 		});
-		System.out.println("Lambda alder: \t\t\t"+persons);        
+		System.out.println("Lambda alder: \t\t\t"+persons);
+		
+		// Enda enklere
+		persons.sort((p1, p2) -> -p1.getAge()- p2.getAge());
+		System.out.println("Lambda alder motsatt: \t\t"+persons);
+		
 	}
 }
