@@ -31,6 +31,14 @@ public class Person {
 		this.children = new ArrayList<Person>();
 	}
 
+	public boolean isMale() {
+		return gender == 'M';
+	}
+
+	public boolean isFemale() {
+		return gender == 'F';
+	}
+
 	public String getName() {
 		return name;
 	}
