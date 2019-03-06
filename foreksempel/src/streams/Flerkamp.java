@@ -45,7 +45,7 @@ public class Flerkamp {
 		// Hente ut linje for linje fra en fil:
 		try { // Påkrevd try siden en leser fra fil.
 			// Her vet jeg hvor denne filen ligger i forhold til Paths.get, så hardkoder. Kan gjøres som overfor...
-			Files.lines(Paths.get("src\\streams\\flerkamp.txt"))
+			Files.lines(Paths.get("src/streams/flerkamp.txt"))
 			
 			// Nå er hvert objekt en String, linje fra filen.
 			.skip(1) // Den første linjen er overskrift, dropper den.
@@ -108,7 +108,7 @@ public class Flerkamp {
 		
 		// Så, for syns skyld lesing av filen på en av de gamle måtene:
 		try {
-			fk.readFile_old("C:\\Users\\borge\\tdt4100-v2019-underviser\\git\\tdt4100-v2019-students\\foreksempel\\target\\test-classes\\streams\\flerkamp.txt");
+			fk.readFile_old("C:/Users/borge/tdt4100-v2019-underviser/git/tdt4100-v2019-students/foreksempel/target/test-classes/streams/flerkamp.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
