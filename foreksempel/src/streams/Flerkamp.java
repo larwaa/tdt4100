@@ -1,5 +1,9 @@
 package streams;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -59,6 +63,24 @@ public class Flerkamp {
 	}
 
 	
+	private void readFile_old(String fil) throws FileNotFoundException {
+		  File file = new File(fil); 
+		  
+		  BufferedReader br = new BufferedReader(new FileReader(file)); 
+		  
+		  String st; 
+		  System.out.println("\nSkal lese ut fra en fil på gamlemåten:");
+		  try {
+			while ((st = br.readLine()) != null) 
+			    System.out.println(st);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		  } 
+		
+	
+	
 	// Denne brukes av readFile. Den parser en streng (linje fra filen) og oppretter et Deltakerobjekt.
 	// Dette mates tilbake i strømmen.
 	private Deltaker fromCols(String...cols) {
@@ -83,6 +105,13 @@ public class Flerkamp {
 		.filter(x -> x.getBaloonshooting() >= 10)
 		.filter(x -> x.getPoker() >= 10)
 		.forEach(p -> System.out.println("\nMinst to poeng i poker og ballongskyting: "+p.getName()));		
+		
+		// Så, for syns skyld lesing av filen på en av de gamle måtene:
+		try {
+			fk.readFile_old("C:\\Users\\borge\\tdt4100-v2019-underviser\\git\\tdt4100-v2019-students\\foreksempel\\target\\test-classes\\streams\\flerkamp.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
