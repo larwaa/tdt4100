@@ -8,6 +8,8 @@ import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
+import plab.serial.winx.OsInfo;
+import plab.serial.winx.WinXBluetoothHelper;
 import javafx.application.Platform;
 
 /** 
@@ -54,6 +56,10 @@ public class PLabSerial {
 		int length = serialports.length;
 		for(int i=0;i<length;i++) {
 			portNames[i] = serialports[i].getDescriptivePortName();
+			System.out.println("System name: " + serialports[i].getSystemPortName());
+			System.out.println("Descriptive name: " + serialports[i].getDescriptivePortName());
+			//System.out.println("Description: " + serialports[i].getPortDescription());
+			System.out.println("Description: " + serialports[i].toString());
 		};
 		return portNames;
 	}
@@ -97,17 +103,28 @@ public class PLabSerial {
 	
 	public boolean openPLabPort() {
 		String portName;
-		String[] serialportNames = getPortNames();
-		for(int i=0;i<serialportNames.length;i++) {
-			portName = serialportNames[i];
-			int plab_found = portName.indexOf("PLab");
-			int dialin_found = portName.indexOf("Dial-In");
-			if ((plab_found > -1) && (dialin_found == -1)) {
+		if(OsInfo.isWinX()) {
+			portName = WinXBluetoothHelper.getPLabPort();
+			System.out.println(portName);
+			if(portName == null) {
+				return false;
+			} else {
 				openPort(portName);
 				return true;
 			}
-		};
-		return false;
+		} else {
+			String[] serialportNames = getPortNames();
+			for(int i=0;i<serialportNames.length;i++) {
+				portName = serialportNames[i];
+				int plab_found = portName.indexOf("PLab");
+				int dialin_found = portName.indexOf("Dial-In");
+				if ((plab_found > -1) && (dialin_found == -1)) {
+					openPort(portName);
+					return true;
+				}
+			};
+			return false;
+		}
 	}
 	
 	public String getOpenPortName() {
