@@ -24,7 +24,7 @@ public class Flerkamp {
 		// Slik kan man finne ut hvilken folder classfilene ligger i:
 		// URI er en grei plass å lagre denne for senere bruk med Path.
 		
-		// Setter den sammen av folderen til classfilene
+		// Setter den sammen av folderen til classfilene og pakkenavnet.
 		URI classUri = URI.create((getClass().getProtectionDomain().getCodeSource().getLocation().toString()+
 				getClass().getPackageName()));
 		System.out.println(classUri);
