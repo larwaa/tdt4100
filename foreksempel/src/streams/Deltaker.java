@@ -2,6 +2,7 @@ package streams;
 
 public class Deltaker {
 
+	// Helt vanlig fil -  settere og gettere, konstruktør alt autogenerert.
 	String name, holdbreath;
 	int poker, balloonshooting, sausageeating;
 	double highjump;
