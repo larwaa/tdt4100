@@ -20,7 +20,7 @@ public class Deltaker {
 	public int getPoker() {
 		return poker;
 	}
-	public int getBaloonshooting() {
+	public int getBalloonshooting() {
 		return balloonshooting;
 	}
 	public int getSausageeating() {

@@ -102,7 +102,7 @@ public class Flerkamp {
 		
 		// Hva med å finne deltakerne som fikk minst 10 poeng på ballongskyting og poker?
 		fk.deltakere.stream()  // Enhver List kan streames!
-		.filter(x -> x.getBaloonshooting() >= 10 && x.getPoker() >= 10)
+		.filter(x -> x.getBalloonshooting() >= 10 && x.getPoker() >= 10)
 		.forEach(p -> System.out.println("\nMinst ti poeng i poker og ballongskyting: "+p.getName()));		
 		
 		// Så, for syns skyld lesing av filen på en av de gamle måtene:
