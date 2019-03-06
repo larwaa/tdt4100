@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 import com.fazecast.jSerialComm.SerialPort;
 
+/**
+ * @author Adrian Stoica, IDI, NTNU
+ * WinXBluetoothHelper is a class which allows detecting the corresponding 
+ * COM port for a Bluetooth device in windows 10
+ */
 public class WinXBluetoothHelper {
 	public static String getPLabPort()	{
 		PowerShellExecute pse = new PowerShellExecute();
