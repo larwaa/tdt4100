@@ -72,12 +72,13 @@ public class StreamExamples {
 
 		// Lage en kontinuerlig strøm av heltall som deles på et annet tall, og så skrive ut de første 100:
 		// Håvard sitt forslag
+		System.out.println("Bare et skrudd eksempel på hva en kan. Limit er bra, ellers ville den fortsatt...");
 		IntStream
 		.range(0,999999999)
 		//		.mapToDouble(n -> Double.valueOf(n)) // Er det samme, men mer tungvinte enn
 		.mapToDouble(Double::valueOf)
-		.map( n -> n/3)
-		//		.filter(n -> n % 2978 == 0) // Denne linjen var ikke Håvard som kom på. Jeg ville bare ikke vente sååååå lenge:)
+		.map( n -> n/2978)
+		.filter(n -> n % 2978 == 0) // Denne linjen var ikke Håvard som kom på. Jeg ville bare ikke vente sååååå lenge:)
 		.limit(10)
 		.forEach(System.out::println);
 
