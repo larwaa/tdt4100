@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Main {
 	public static void main(String[] args) {
@@ -12,6 +11,9 @@ public class Main {
 		persons.add(new Person("Bob", "Hansen", 3));
 		persons.add(new Person("Camilla", "Hansen", 112));
 
+		Collections.sort(persons);
+		System.out.println(persons);
+		
 		// Første sortering gjøres med en ekstern Comparator:
 		// Kallet på sort roter med rekkefølgen i listen persons selv
 		// om en ikke har noe persons = osv, akkurat som liste.sort() i python.
