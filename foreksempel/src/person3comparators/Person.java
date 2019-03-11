@@ -2,7 +2,7 @@ package person3comparators;
 
 import java.util.Comparator;
 
-public class Person implements Comparable<Person>{
+public class Person {
 
 	private String givenName, familyName;
 	private int age;
@@ -45,13 +45,4 @@ public class Person implements Comparable<Person>{
 		this.givenName = name;
 	}
 
-	@Override
-	public int compareTo(Person o) { // pga implements Comparable
-		int sort = this.getFamilyName().compareTo(o.getFamilyName());
-		if (sort != 0) 
-			return sort;
-		else {
-			return this.getGivenName().compareTo(o.getGivenName());
-		}
-	}
 }

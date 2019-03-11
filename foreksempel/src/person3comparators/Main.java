@@ -35,10 +35,10 @@ public class Main {
 
 		// Tredje variant gjøres ved å bruke en lambdafunksjon.
 		// Dette er funksjonelle grensesnitt.
-		Collections.sort(persons, (p1, p2) -> {
-			return p1.getGivenName().
-					compareTo(p2.getGivenName());
-		});
+		Collections.sort(persons, (p1, p2) -> 
+			p1.getGivenName().compareTo(p2.getGivenName())
+		
+		);
 		System.out.println("Lambda fornavn alfabetisk: \t"+persons);        
 
 	
