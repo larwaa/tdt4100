@@ -1,4 +1,4 @@
-package streams;
+package exceptions;
 
 public class Deltaker {
 
@@ -42,8 +42,8 @@ public class Deltaker {
 	public void setPoker(int poker) {
 		this.poker = poker;
 	}
-	public void setBaloonshooting(int baloonshooting) {
-		this.balloonshooting = baloonshooting;
+	public void setBaloonshooting(int balloonshooting) {
+		this.balloonshooting = balloonshooting;
 	}
 	public void setSausageeating(int sausageeating) {
 		this.sausageeating = sausageeating;
