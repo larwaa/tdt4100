@@ -25,13 +25,13 @@ public class Flerkamp {
 		// URI er en grei plass å lagre denne for senere bruk med Path.
 		
 		// Setter den sammen av folderen til classfilene og pakkenavnet.
-		URI classUri = URI.create((getClass().getProtectionDomain().getCodeSource().getLocation().toString()+
-				getClass().getPackageName()));
-		System.out.println(classUri);
+		URI classUri = URI.create((getClass().getProtectionDomain().getCodeSource().getLocation().toString()));
+		System.out.println("Folder: "+classUri + "\nPakkenavn: "+getClass().getPackageName());
+		// Det over brukes ikke nå, det er bare et eksempel for å vise at en kan finne ut hvor en er i folderne.
 
 		
 		// Eksempel for å lese ut innholdet av en katalog.
-		Path path = Paths.get(classUri);
+		Path path = Paths.get("src/streams/flerkamp.txt");
 		try(Stream<Path> subPaths = Files.walk(path)) {
 //			subPaths.forEach(System.out::println);
 		}
@@ -40,7 +40,7 @@ public class Flerkamp {
 		}
 
 		System.out.println();
-		
+
 		// Her kommer selve streams-metoden i bruk:
 		// Hente ut linje for linje fra en fil:
 		try { // Påkrevd try siden en leser fra fil.
@@ -58,8 +58,8 @@ public class Flerkamp {
 		} catch (IOException e) {
 			// Har ikke gjort noe spesielt med feilhåndteringen.
 			e.printStackTrace();
+		} finally {
 		}
-
 	}
 
 	
@@ -68,13 +68,12 @@ public class Flerkamp {
 		  
 		  BufferedReader br = new BufferedReader(new FileReader(file)); 
 		  
-		  String st; 
+		  String str; 
 		  System.out.println("\nSkal lese ut fra en fil på gamlemåten:");
 		  try {
-			while ((st = br.readLine()) != null) 
-			    System.out.println(st);
+			while ((str = br.readLine()) != null) 
+			    System.out.println(str);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		  } 
@@ -91,17 +90,18 @@ public class Flerkamp {
 
 	public static void main(String[] args) throws URISyntaxException {
 		Flerkamp fk = new Flerkamp();
-		fk.readFile();
+		fk.readFile(); // Leser via stream og legger Deltakere inn i fk
 
 		// Nå skal alle deltakerne ha blitt lagt inn i listen. Så en enkel stream-måte å skrive dem ut på,
 		// println kaller toString i hvert Deltakerobjekt på veien.
 //		fk.deltakere.stream().forEach(System.out::println);
 
 		// Hva med å skrive ut alle navnene til deltakerne? Tenk at data flyter fra venstre mot høyre og endres.
-		System.out.println("Deltakere: "+fk.deltakere.stream().map(x -> x.getName()).collect( Collectors.joining( ", " )));
+		System.out.println("Deltakere: "+fk.deltakere.stream()
+		.map(x -> x.getName()).collect( Collectors.joining( ", " )));
 		
 		// Hva med å finne deltakerne som fikk minst 10 poeng på ballongskyting og poker?
-		fk.deltakere.stream()  // Enhver List kan streames!
+		fk.deltakere.stream()  // Enhver Collection kan streames!
 		.filter(x -> x.getBalloonshooting() >= 10 && x.getPoker() >= 10)
 		.forEach(p -> System.out.println("\nMinst ti poeng i poker og ballongskyting: "+p.getName()));		
 		
