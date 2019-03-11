@@ -107,6 +107,7 @@ public class StreamExamples {
 		// Hvis det ikke hadde vært i main kune en brukt getClass.getResource 
 		// Merk spesialtilfelle. På denne måten MÅ en ikke innkapsle i try. Det må en uten streams.
 		System.out.println(new BufferedReader(new InputStreamReader(StreamExamples.class.getResourceAsStream("bands.txt"))).lines()
+				// Over: hvis du bruker linjen over i en annen metode enn main, bytt ut klassenavn.class med getClass()
 				.filter(p -> p.length() > 8) // Alle bandnavn lenger enn 8 tegn
 				.sorted((a, b) -> a.charAt(1) - b.charAt(1)) // sortert på andre bokstav i navnet
 				//					.peek(System.out::println) // Lurkikk
