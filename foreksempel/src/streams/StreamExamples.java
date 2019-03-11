@@ -1,0 +1,116 @@
+package streams;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.String;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class StreamExamples {
+
+	public static void main(String[] args) throws IOException {
+
+
+
+		List<Integer> liste = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+
+		// Fjerne oddetall:
+		System.out.print("Liste av partall:");
+		System.out.println(liste.stream()
+				.filter(i -> i%2 == 0)
+				.collect(Collectors.toList()));
+
+		// Summer tall:
+		System.out.print("Sum av tall: ");
+		System.out.println(liste.stream()
+				.reduce(0, (sum, i) -> sum + i));
+
+		List<String> people = Arrays.asList("Al", "Skybert", "Farfar", "Farmor", "Håvard", "Jørn", "Andrea", "Børge");
+		// Liste med lengde av Stringobjekter:
+		System.out.print("Navnelengder: ");
+		System.out.println(people.stream()
+				.map(s -> s.length())
+				//		.distinct()
+				//		.sorted()
+				.collect(Collectors.toList()));
+
+
+		// Sum av lengder av Stringobjekter:
+		System.out.print("Sum av navnelengder: ");
+		System.out.println(people.stream()
+				.map(s -> s.length())
+				.reduce(0, (sum, i) -> sum+i));
+
+
+		// Fjerne de første seks elementene i en intstream fra 0 til 10, og telle elementer:
+		System.out.print("Hopper over noen elementer: ");
+		System.out.println(IntStream
+				.range(0, 10)
+				//				.peek(System.out::println)
+				.skip(6)
+				.count());
+
+		// Legge sammen alle tall opp til 200 som går opp i tre og sju
+		System.out.print("Legge sammen elementer fra 0-200 som går opp i 3 og 7: ");
+		System.out.println(IntStream
+				.range(0, 200)
+				.filter(t -> t%3 == 0)
+				.filter(t -> t%7 == 0)
+				.reduce(0, (sum,i) -> sum+i));
+
+
+
+		// Lage en kontinuerlig strøm av heltall som deles på et annet tall, og så skrive ut de første 100:
+		// Håvard sitt forslag
+		IntStream
+		.range(0,999999999)
+		//		.mapToDouble(n -> Double.valueOf(n)) // Er det samme, men mer tungvinte enn
+		.mapToDouble(Double::valueOf)
+		.map( n -> n/3)
+		//		.filter(n -> n % 2978 == 0) // Denne linjen var ikke Håvard som kom på. Jeg ville bare ikke vente sååååå lenge:)
+		.limit(10)
+		.forEach(System.out::println);
+
+
+		List<String> folk = Arrays.asList("Al", "Skybert", "Farfarharetlangtnavn", "Farmor", "Håvard", "Jørn", "Andrea", "Børge");
+
+		System.out.println("Personer med navn lenger enn fem tegn, på en fin måte:");
+		// Skrive ut alle navn i listen som er mer enn fem tegn, og hvor mange tegn de er.
+		folk.stream()
+		//		.peek(System.out::println)
+		.filter(p -> p.length() > 5)
+		.map(p -> p+"\t"+p.length())
+		.forEach(System.out::println);
+
+		// Lage en samling som inneholder alle personene som starter med "A" og lengde over fire.
+		System.out.print("Navn som starter med F og lengde over 6: ");
+		System.out.println(folk.stream()
+				.filter(p -> p.startsWith("F"))
+				.filter(p -> p.length() > 6)
+				.collect(Collectors.toList()));
+
+
+		// Lese fra fil og legge inn i objekter: se Flerkamp.java
+
+		// Lese fra fil:
+		// Hvis det ikke hadde vært i main kune en brukt getClass.getResource 
+		// Merk spesialtilfelle. På denne måten MÅ en ikke innkapsle i try. Det må en uten streams.
+		System.out.println(new BufferedReader(new InputStreamReader(StreamExamples.class.getResourceAsStream("bands.txt"))).lines()
+				.filter(p -> p.length() > 8)
+				.sorted((a, b) -> a.charAt(1) - b.charAt(1))
+				//					.peek(System.out::println)
+				.map(n -> n.charAt(1))
+				.collect(Collectors.toList()));
+
+	}
+}
