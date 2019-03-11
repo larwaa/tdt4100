@@ -102,15 +102,16 @@ public class StreamExamples {
 
 		// Lese fra fil og legge inn i objekter: se Flerkamp.java
 
+		System.out.println("Lese fra fil:");
 		// Lese fra fil:
 		// Hvis det ikke hadde vært i main kune en brukt getClass.getResource 
 		// Merk spesialtilfelle. På denne måten MÅ en ikke innkapsle i try. Det må en uten streams.
 		System.out.println(new BufferedReader(new InputStreamReader(StreamExamples.class.getResourceAsStream("bands.txt"))).lines()
-				.filter(p -> p.length() > 8)
-				.sorted((a, b) -> a.charAt(1) - b.charAt(1))
-				//					.peek(System.out::println)
-				.map(n -> n.charAt(1))
-				.collect(Collectors.toList()));
+				.filter(p -> p.length() > 8) // Alle bandnavn lenger enn 8 tegn
+				.sorted((a, b) -> a.charAt(1) - b.charAt(1)) // sortert på andre bokstav i navnet
+				//					.peek(System.out::println) // Lurkikk
+				.map(n -> n.charAt(1)) // hent bare ut andre bokstav
+				.collect(Collectors.toList())); // Samle til en liste
 
 	}
 }
