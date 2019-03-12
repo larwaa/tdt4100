@@ -7,20 +7,35 @@ public class Propagation {
 
 
 	static void method4() {
-		int a = 7;
-		int b = 1;
-		int c = a / b;
+		try {
+			int a = 7;
+			int b = 1; 
+			int c = a / b;
+			
+			String foo = null;
+			int length = foo.length();
+			
+		} catch (ArithmeticException e) {
+			System.out.println(e.getMessage());
+		}
+		finally
+		{
+			System.out.println("Inni method4: ");
+		}
 
-		System.out.println("Inni method4: "+c);
 	}
- 
+
 	static void method3() {
 		method4();
 		System.out.println("Inni method3");
 	}
 
 	static void method2() {
-		method3();
+		try {
+			method3();
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
 		System.out.println("Inni method2");
 	}
 
@@ -36,10 +51,10 @@ public class Propagation {
 
 
 	public static void main(String[] args) {
-		
+
 		method();
 		System.out.println("Inni main");
-        }
+	}
 
 }
 
