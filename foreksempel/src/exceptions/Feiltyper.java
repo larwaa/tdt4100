@@ -8,12 +8,12 @@ public class Feiltyper {
 
 
 		// Nullpointerexception:
-		//		String foo = null;
-		//        int length = foo.length();   
+//				String foo = null;
+//		        int length = foo.length();   
 
 		// Classcastexception:
-		//        Object i = Integer.valueOf(42);
-		//        String s = (String)i; 
+//		        Object i = Integer.valueOf(42);
+//		        String s = (String)i; 
 
 		// Indexoutofboundserror:
 		//		List<String> ls=new ArrayList<>();
@@ -22,15 +22,16 @@ public class Feiltyper {
 		//	      ls.get(3);
 
 		// nosuchelementexception:
-		//		List<String> ls = new ArrayList<>();
-		//		Iterator<String> it = ls.iterator();
-		//		System.out.println(it.next());
+//				List<String> ls = new ArrayList<>();
+//				Iterator<String> it = ls.iterator();
+//				System.out.println(it.next());
 
 		// UnsupportedOperationException
 //		String[] flowers = { "Ageratum", "Allium", "Poppy", "Catmint" }; 
-//		List<String> flowerList = Arrays.asList(flowers);  
-////		List<String> flowerList = new ArrayList<>(Arrays.asList(flowers));
+////		List<String> flowerList = Arrays.asList(flowers);  
+//		List<String> flowerList = new ArrayList<>(Arrays.asList(flowers));
 //		flowerList.add("Celosia");
+//		flowerList.forEach(System.out::println);
 		
 		
 		// IllegalArgumentException:
@@ -40,6 +41,6 @@ public class Feiltyper {
 //		        "Ost",    13, // !
 //		        "Bacalao",      14
 //		);
-	}
+//	}
 
 }
