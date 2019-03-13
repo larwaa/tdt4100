@@ -14,7 +14,7 @@ import java.util.Optional;
 
 import streams.StreamExamples;
 
-public class FlerkampHjemme {
+public class Flerkamp {
 
 	List<Deltaker> deltakere = new ArrayList<>();
 
@@ -52,7 +52,9 @@ public class FlerkampHjemme {
 
 	public static void main(String[] args) {
 
-		FlerkampHjemme fk = new FlerkampHjemme();
+		Flerkamp fk = new Flerkamp();
+		
+		// Gammel måte å hente ut fra fil:
 		//		try {
 		//			fk.filTilDeltakerliste("src/exceptions/flerkamp.txt");
 		//		} catch (IOException e) {
