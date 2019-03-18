@@ -18,7 +18,7 @@ public class SkiResort {
 	}
 	
 	public void removeListener(PudderListener listener) {
-		listeners.remove(listeners);
+		listeners.remove(listener);
 	}
 	
 	public void setAmountOfSnow(int cm) {
