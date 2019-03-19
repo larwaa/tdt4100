@@ -35,18 +35,19 @@ public class Idol {
 	public void setHairColor(final Color hairColor) {
 		final Color oldValue = this.hairColor;
 		this.hairColor = hairColor;
-		// Oppdatere følgere
+		fireIdolChanged(HAIR_COLOR_PROPERTY, oldValue, hairColor);
 	}
 	
 	public void setHairLength(final int hairLength) {
 		final int oldValue = this.hairLength;
 		this.hairLength = hairLength;
-		// Oppdatere følgere
+		fireIdolChanged(HAIR_COLOR_PROPERTY, oldValue, hairLength);
+		fireIdolChanged(HAIR_LENGTH_PROPERTY, oldValue, hairLength);
 	}
 	
 	private void fireIdolChanged(final String propertyName, final Object oldValue, 
 			final Object newValue) {
-		
+		idolFans.forEach( i -> i.idolChanged(this, propertyName, oldValue, newValue));
 	}
 	
 	
