@@ -30,7 +30,7 @@ public class Kjendis {
 		kjendis.setBeundrer(beundrer);
 		kjendis.setVesketype("En pose fra Rema");
 		System.out.println("Beundrers vesketype: "+beundrer.getVesketype());
-		kjendis.setVesketype("Den patetiske lille til ti tusen");
+		kjendis.setVesketype("Den patetiske lille til ti tusen (min mening, ikke nødvendigvis din).");
 		System.out.println("Beundrers vesketype: "+beundrer.getVesketype());
 	}
 
