@@ -1,60 +1,47 @@
 package arv;
 
 public class Person {
+
+	// Lag den helt vanilla i foil 17, utvid med setName etc i foil 25
+	// Ta dog med toString i 17
 	
-	
+	// Legg til equals-sjekk før og etter implementering av equals i Person
+
 	private String name;
 
-	public Person(String name) {
-		super();
-		this.name = name;
+	public Person(final String name) {
+		setName(name);
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
+		checkName(name);  
 		this.name = name;
 	}
-	
-	public static void main(String[] args) {
-		Person p1 = new Person("Per Hansen");
-		Person p2 = new Person("Per Hansen");
-		System.out.println(p1);
-		System.out.println(p1.equals(p2));
 
+	// Trenger ikke returnere noe, den utløser unntak hvis den finner noe.
+	private void checkName(final String name) {
+		for (int i = 0; i < name.length(); i++) {
+			final char c = name.charAt(i);
+//			System.out.println("'"+c+"'");
+//			System.out.println(" .-".indexOf('%'));
+			if (! (Character.isLetter(c) || " -".indexOf(c) >= 0)) {
+				throw new NameValidationException(this, name);
+			}
+		}
 	}
 
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
-
-	public String toString() {
-		System.out.println(super.toString());
-		return "Person [name=" + name + "]";
+	public static void main(final String[] args) {
+		try {
+			Person p = new Person("Per Hansen");
+			Person p2 = new Person("Per@Hansen");
+			System.out.println(p.getName());
+		} catch (final NameValidationException e) {
+			System.out.println(e.getLocalizedMessage()); // Denne utløser toString, slide 25 om arv
+		}
 	}
 
 }
