@@ -27,7 +27,7 @@ public class Point {
 	}
 	
 	public static void main(String[] args) {
-		Point p1 = new Point(2.3,  3.4);
+		Point p1 = new Point(2.3,  3.4); // x er like, y ikke.
 		Point p2 = new Point(2.3,  3.7);
 		
 		System.out.println(p1.equals(p2));

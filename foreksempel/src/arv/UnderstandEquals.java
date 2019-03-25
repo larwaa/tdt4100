@@ -39,7 +39,7 @@ public class UnderstandEquals {
 	}
 
 
-
+	// Hva skjer med sammenlikning av u1 og u2 når du fjerner denne?
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,9 +58,11 @@ public class UnderstandEquals {
 	}
 
 
-
+	// Prøv å fjerne denne metoden, se hva toString skriver ut da. Jo, Object sin!
 	@Override
 	public String toString() {
+		// Prøv dette for moro skyld:
+//		System.out.println(super.toString());
 		return "UnderstandEquals [ting=" + ting + "]";
 	}
 

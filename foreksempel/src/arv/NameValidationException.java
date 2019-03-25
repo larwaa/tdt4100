@@ -10,6 +10,7 @@ public class NameValidationException extends IllegalArgumentException{
 	}
 
 	@Override
+	// Denne skrives ut i catch-metoden i person. Via Throwable sin getLocalizedMessage().
 	public String getMessage() {
 		return illegalName + " is illegal for " + person;
 	}

@@ -23,6 +23,8 @@ public class Person {
 	}
 
 	// Trenger ikke returnere noe, den utløser unntak hvis den finner noe.
+	// Unntaket skriver ikke automatisk ut, som sagt på forelesning (overtrøtt...)
+	// Det skrives ut der en fanger opp feilen, se catch i main.
 	private void checkName(final String name) {
 		for (int i = 0; i < name.length(); i++) {
 			final char c = name.charAt(i);
@@ -40,7 +42,11 @@ public class Person {
 			Person p2 = new Person("Per@Hansen");
 			System.out.println(p.getName());
 		} catch (final NameValidationException e) {
-			System.out.println(e.getLocalizedMessage()); // Denne utløser toString, slide 25 om arv
+			// Test F3 på getLocalizedMessage under. Da ender du opp på Throwable-klassen.
+			// Denne igjen kaller getMessage. Den er beskrevet i NameValidationException,
+			// og som sagt på forelesning vil den overskygge andre getMessage. Dermed skrives
+			// den ut. Se foil 25 om arv.
+			System.out.println(e.getLocalizedMessage()); 
 		}
 	}
 
