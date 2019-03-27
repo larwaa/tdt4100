@@ -3,7 +3,7 @@ package arv;
 public class Ordbok extends Bok {
 
 	int antallOrd;
-	String test = "foo";
+	String test = "foo"; // brukes bare til å vise et problem, se linje 24.
 
 	public Ordbok(String tittel, int antallOrd) {
 		super(tittel);
