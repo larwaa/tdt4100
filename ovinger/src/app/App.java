@@ -9,12 +9,12 @@ public class App extends Application{
 
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
-		primaryStage.setTitle("My Application");
+		primaryStage.setTitle("Student");
 		primaryStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("App.fxml"))));
 		primaryStage.show();
 	}
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws Exception{
 		App.launch(args);
 	}
 }

@@ -58,7 +58,7 @@ public class CoffeeCup {
 			this.currentVolume -= volume;
 		}
 		else{
-			throw new IllegalArgumentException("You can't drink that much coffee!");
+			throw new IllegalArgumentException("You can't drink that much coffee!"); 
 		}
 	}
 	
@@ -69,6 +69,18 @@ public class CoffeeCup {
 		else{
 			throw new IllegalArgumentException("You just poured coffee all over the table. Good job.");
 		}
+	}
+	
+	public static void main(String[] args) {
+		CoffeeCup c1 = new CoffeeCup(1, 1);
+		c1.increaseCupSize(2);
+		c1.increaseCupSize(0);
+		c1.increaseCupSize(-1);
+		c1.drinkCoffee(1);
+		c1.fillCoffee(3);
+		c1.fillCoffee(2);
+		c1.drinkCoffee(3);
+		c1.drinkCoffee(1);
 	}
 
 }

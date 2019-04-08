@@ -28,17 +28,17 @@ public class StringMergingIterator implements Iterator<String> {
 		String result = null;
 		
 		if(! first.hasNext()){
-			result = first.next();
+			result = second.next(); // bytter fra first til second
 		} 
 		else if(! second.hasNext()){
-			result = second.next();
+			result = first.next(); // bytter fra second til first
 		} 
 		else {
 			if(turnSwitch){
 				result = first.next();
 				turnSwitch = false;
 			}
-			if(!turnSwitch){
+			else { // byttet fra if(!turnSwitch) til else
 				result = second.next();
 				turnSwitch = true;
 			}

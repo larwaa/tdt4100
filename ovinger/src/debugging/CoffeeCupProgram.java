@@ -13,7 +13,7 @@ public class CoffeeCupProgram {
 	}
 	
 	public void run(){
-		part1();
+		//part1();
 		part2();
 	}
 	
@@ -25,7 +25,7 @@ public class CoffeeCupProgram {
 		cup.drinkCoffee(Math.ceil(r.nextDouble()*38.9));
 		cup.drinkCoffee(Math.ceil(r.nextDouble()*42));
 		cup.increaseCupSize(17);
-		cup.drinkCoffee(40);
+		cup.drinkCoffee(40); // Her utløses unntaket, capacty = 57.0, currentVolume = 5.0, // drinkCoffee() utløser unntaket
 		cup.drinkCoffee(Math.ceil(r.nextDouble()*42));
 		cup.drinkCoffee(Math.floor(r.nextDouble()*20.5));
 		cup.fillCoffee(32.5);
@@ -35,14 +35,14 @@ public class CoffeeCupProgram {
 	}
 	
 	private void part2(){
-		cup = new CoffeeCup(40.0, 20.5);
+		cup = new CoffeeCup(40.0, 20.5); // currentVolume = 20.5
 		r = new Random(987654321L);
-		cup.drinkCoffee(Math.floor(r.nextDouble()*20.5));
-		cup.fillCoffee(Math.floor(r.nextDouble()*30));
-		cup.drinkCoffee(Math.ceil(r.nextDouble()*38.9));
-		cup.drinkCoffee(Math.ceil(r.nextDouble()*42));
+		cup.drinkCoffee(Math.floor(r.nextDouble()*20.5)); // currentVolume = 14.5
+		cup.fillCoffee(Math.floor(r.nextDouble()*30)); // currentVolume = 38.5
+		cup.drinkCoffee(Math.ceil(r.nextDouble()*38.9)); // currentVolume = 36.5
+		cup.drinkCoffee(Math.ceil(r.nextDouble()*42)); // currentVolume = 6.5
 		cup.increaseCupSize(Math.floor(r.nextDouble()*26));
-		cup.fillCoffee(Math.ceil(r.nextDouble()*59));
+		cup.fillCoffee(Math.ceil(r.nextDouble()*59)); // IllegalArgumentException blir kastet fra fillCoffee()
 		cup.drinkCoffee(Math.ceil(r.nextDouble()*42));
 		cup.increaseCupSize(Math.floor(r.nextDouble()*35));
 		cup.fillCoffee(Math.floor(r.nextDouble()*30));
