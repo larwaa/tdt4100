@@ -23,7 +23,7 @@ public class Card {
 		}
 		this.suit = suit;
 		this.face = face;
-	}
+	}x
 	
 	/*
 	 * Returns suit and face as a string
@@ -44,6 +44,8 @@ public class Card {
 	public static void main(String[] args) {
 		 Collection<Card> cards = Arrays.asList(new Card('S', 1), new Card('H', 2), new Card('D', 12), new Card('C', 13));
 		 
+		 System.out.println(cards.stream().mapToInt(Card::getFace).reduce((sum, i) -> sum += i).orElse(0));
+		 System.out.println(cards.stream().map(Card::getSuit).distinct().count() == 4);
 
 
 		 

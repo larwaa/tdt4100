@@ -1,5 +1,6 @@
 package loekkeinterface;
 
-public interface LøkkePrintInterface {
+public interface LoekkePrintInterface {
 	public void printCharacters(Object obj);
+	
 }

@@ -1,6 +1,6 @@
 package loekkeinterface;
 
-public class CharArrayPrinter implements LøkkePrintInterface{
+public class CharArrayPrinter implements LoekkePrintInterface{
 
 	@Override
 	public void printCharacters(Object obj) {

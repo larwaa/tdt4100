@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Løkker {
+public class Loekker {
 
 	public static void main(String[] args) {
 		
-		Løkker løkke = new Løkker();
+		Loekker løkke = new Loekker();
 		List<Character> liste = new ArrayList<>();
 		liste.add('a');
 		liste.add('b');
@@ -23,7 +23,7 @@ public class Løkker {
 		løkke.skrivut(charArray, new CharArrayPrinter());	
 	}
 
-	private void skrivut(Object ob, LøkkePrintInterface pI) {
+	private void skrivut(Object ob, LoekkePrintInterface pI) {
 		pI.printCharacters(ob);
 	}
 }

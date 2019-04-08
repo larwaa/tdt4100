@@ -2,7 +2,7 @@ package loekkeinterface;
 
 import java.util.ArrayList;
 
-public class ListCharPrinter implements LøkkePrintInterface{
+public class ListCharPrinter implements LoekkePrintInterface{
 
 	@Override
 	public void printCharacters(Object obj) {
