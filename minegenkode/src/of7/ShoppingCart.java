@@ -22,6 +22,7 @@ public class ShoppingCart {
 		if (cart.containsKey(item)) {
 			return this.cart.get(item);
 		}
+		System.out.println("TEST");
 		return 0;
 	}
 	
