@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class CardHand implements CardContainer {
@@ -21,6 +22,10 @@ public class CardHand implements CardContainer {
 	
 	public Card play(int n) {
 		return this.cardHand.remove(n);
+	}
+	
+	public Iterator<Card> iterator(){
+		return new CardContainerIterator(this);
 	}
 	
 	public static void main(String[] args) {

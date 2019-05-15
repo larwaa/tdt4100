@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -93,6 +94,10 @@ public class CardDeck implements CardContainer {
 			s += card + "\n";
 		}
 		return s;
+	}
+	
+	public Iterator<Card> iterator(){
+		return new CardContainerIterator(this);
 	}
 	
 	public static void main(String[] args) {

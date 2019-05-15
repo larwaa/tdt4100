@@ -1,152 +1,113 @@
 package encapsulation;
 
 public class Rectangle {
-	
-	int maxX;
-	int maxY;
-	int minX;
-	int minY;
 
-	public Rectangle() {
-		this.maxX = 0;
-		this.maxY = 0;
-		this.minX = 0;
-		this.minY = 0;
+	private int x = 0, y = 0, width = 0, height = 0;
+
+	@Override
+	public String toString() {
+		return String.format("[Rectangle %s-%s,%s-%s %sx%s]", getMinX(), getMaxX(), getMinY(), getMaxY(), getWidth(), getHeight());
 	}
-	
-	public Rectangle(int maxX, int minX, int maxY, int minY) {
-		this.maxX = maxX;
-		this.maxY = minX;
-		this.minX = maxY;
-		this.minY = minY;
-	}
-	
+
 	public int getWidth() {
-		return maxY - minY;
-	}
-	
-	public int getHeight() {
-		return maxX - minX;
-	}
-	
-	public boolean isEmpty() {
-		return ((maxX == minX) && (maxY == minY));
-	}
-	
-	public int getMaxX() {
-		return maxX;
+		return width;
 	}
 
-	public int getMaxY() {
-		return maxY;
+	public int getHeight() {
+		return height;
 	}
 
 	public int getMinX() {
-		return minX;
+		return x;
 	}
 
 	public int getMinY() {
-		return minY;
+		return y;
 	}
-	
+
+	public int getMaxX() {
+		return width == 0 ? 0 : x + width - 1;
+	}
+
+	public int getMaxY() {
+		return height == 0 ? 0 : y + height - 1;
+	}
+
+	public boolean isEmpty() {
+		return width == 0 || height == 0;
+	}
+
+	public boolean contains(int x, int y) {
+		return (! isEmpty()) && (x >= getMinX() && y >= getMinY() && x <= getMaxX() && y <= getMaxY());
+	}
+
+	public boolean contains(Rectangle rect) {
+		return (! rect.isEmpty()) && contains(rect.getMinX(), rect.getMinY()) && contains(rect.getMaxX(), rect.getMaxY());
+	}
+
 	public boolean add(int x, int y) {
 		if (contains(x, y)) {
 			return false;
-		} else {
-			
-			if (this.maxX < x) {
-				this.maxX = x;
-			}
-			
-			if (this.minX > x) {
-				this.minX = x;
-			}
-			
-			if (this.maxY < y) {
-				this.maxY = y;
-			}
-			
-			if (this.minY > y) {
-				this.minY = y;
-			}
-			
+		}
+		if (isEmpty()) {
+			this.x = x;
+			this.y = y;
+			this.width = 1;
+			this.height = 1;
 			return true;
 		}
-	}
-	
-	public boolean add(Rectangle rect) {
-		if (contains(rect)){
-			return false;
-		} else {
-			
-			if (rect.getMaxX() > this.maxX) {
-				this.maxX = rect.getMaxX();
-			}
-			
-			if (rect.getMinX() < this.minX) {
-				this.minX = rect.getMinX();
-			}
-			
-			if (rect.getMaxY() > this.maxY) {
-				this.maxY = rect.getMaxY();
-			}
-			
-			if (rect.getMinY() < this.minY) {
-				this.minY = rect.getMinY();
-			}
-			
-			return true;
+		int dx = x - getMinX();
+		if (dx < 0) {
+			this.x = x;
+			this.width -= dx;
+		} else if (dx > width) {
+			this.width = dx + 1;
 		}
-	}
-	
-	public boolean contains(int x, int y) {
-		return ((this.maxX >= x && this.minX <= x) && (this.maxY >= y && this.minY <= y));
-	}
-	
-	public boolean contains(Rectangle rect) {
-		return ((rect.getMaxX() <= this.maxX) && (rect.getMinX() >= this.minX)
-		&& (rect.getMaxY() <= this.maxY) && (rect.getMinY() >= this.minY));
-	}
-	
-	public Rectangle union(Rectangle rect) {
-		Rectangle combinedRectangle = new Rectangle();
-		Rectangle temp = new Rectangle(maxX, minX, maxY, minY);
-		combinedRectangle.add(rect);
-		combinedRectangle.add(temp);
-		return combinedRectangle;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return String.format("[Rectangle maxX=%s minX=%s maxY=%s minY=%s isEmpty=%s width=%s height=%s]",
-				maxX, minX, maxY, minY, isEmpty(), getWidth(), getHeight());
-	}
-	
-	public static void main(String[] args) {
-		Rectangle r1 = new Rectangle();
-		System.out.println(r1.toString());
-		System.out.println(r1.isEmpty());
-		System.out.println(r1.contains(2, 4));
-		System.out.println(r1.add(2, 4));
-		System.out.println(r1.contains(2, 4));
-		System.out.println(r1.getHeight());
-		System.out.println(r1.getWidth());
-		System.out.println(r1.toString());
-		System.out.println("#########");
-		Rectangle r2 = new Rectangle();
-		System.out.println(r2.toString());
-		System.out.println("#########");
-		System.out.println(r1.add(r2));
-		r2.add(5, 10);
-		System.out.println(r2.toString());
-		System.out.println(r1.contains(r2));
-		System.out.println(r1.add(r2));
-		System.out.println(r1.contains(r2));
-		System.out.println(r1.getHeight());
-		System.out.println(r1.getWidth());
-		System.out.println(r1.toString());
-		System.out.println(r2.toString());
+		int dy = y - getMinY();
+		if (dy < 0) {
+			this.y = y;
+			this.height -= dy;
+		} else if (dy > height) {
+			this.height = dy + 1;
+		}
+		return true;
 	}
 
+	public boolean add(Rectangle rect) {
+		if (rect.isEmpty()) {
+			return false;
+		}
+		boolean changed1 = add(rect.getMinX(), rect.getMinY());
+		boolean changed2 = add(rect.getMaxX(), rect.getMaxY());
+		return changed1 || changed2;
+		// why not
+		// return add(rect.getMinX(), rect.getMinY()) || add(rect.getMaxX(), rect.getMaxY())
+	}
+
+	public Rectangle union(Rectangle rect) {
+		Rectangle union = new Rectangle();
+		union.add(this);
+		union.add(rect);
+		return union;
+	}
+
+	public Rectangle intersection(Rectangle rect) {
+		Rectangle intersection = new Rectangle();
+		int minX = Math.max(getMinX(), rect.getMinX());
+		int minY = Math.max(getMinY(), rect.getMinY());
+		int maxX = Math.min(getMaxX(), rect.getMaxX());
+		int maxY = Math.min(getMaxY(), rect.getMaxY());
+		if (minX <= maxX && minY <= maxY) {
+			intersection.add(minX, minY);
+			intersection.add(maxX, maxY);
+		}
+		return intersection;
+	}
+
+	public boolean intersects(Rectangle rect) {
+		if (isEmpty() || rect.isEmpty()) {
+			return false;
+		}
+		return ! intersection(rect).isEmpty();
+	}
 }

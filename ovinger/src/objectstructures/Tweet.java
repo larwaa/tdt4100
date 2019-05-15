@@ -10,7 +10,6 @@ public class Tweet {
 	public Tweet(TwitterAccount twitterAccount, String text) {
 		this.text = text;
 		this.owner = twitterAccount;
-		this.originalTweet = this;
 		twitterAccount.tweet(this);
 	}
 	
@@ -19,7 +18,11 @@ public class Tweet {
 			throw new IllegalStateException();
 		}
 		
-		this.originalTweet = tweet.getOriginalTweet();
+		if (tweet.getOriginalTweet() == null) {
+			this.originalTweet = tweet;
+		} else {
+			this.originalTweet = tweet.getOriginalTweet();
+		}
 		
 		this.text = tweet.getText();
 		this.owner = twitterAccount;

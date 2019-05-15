@@ -73,7 +73,7 @@ public class TwitterAccount {
 	public int getRetweetCount() {
 		int retweets = 0;
 		for (Tweet tweet : this.tweets) {
-			if (tweet.getOriginalTweet().getOwner() == this) {
+			if (tweet.getOriginalTweet() == null) {
 				retweets += tweet.getRetweetCount();
 			}
 		}

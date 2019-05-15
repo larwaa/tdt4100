@@ -1,4 +1,4 @@
-package interfaces;
+package inheritance;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
