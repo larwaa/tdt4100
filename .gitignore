@@ -21,3 +21,7 @@ plab/
 chess/
 lf/
 *.ex
+tests/
+.settings/
+oving.iml
+pom.xml
