@@ -15,3 +15,9 @@ target/
 
 # JDT-specific (Eclipse Java Development Tools)     
 .classpath
+README.md
+foreksempel/
+plab/
+chess/
+src/
+lf/
