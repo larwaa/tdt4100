@@ -25,3 +25,4 @@ tests/
 .settings/
 ovinger.iml
 pom.xml
+*.zip
