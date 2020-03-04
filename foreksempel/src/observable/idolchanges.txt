@@ -1,2 +1,0 @@
-# Her skal det skrives ut endringer fra IdolFileSave når 
-# du kjører enten Idol.java eller IdolFileSave.java.

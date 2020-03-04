@@ -1,8 +1,0 @@
-Java;2019;Sun Mar 31 13:52:24 CEST 2019
-Matte 3;2019;Sun Mar 31 13:52:24 CEST 2019
------
-Kari;1;Java,2019;Matte 3,2019;
-Ola;1;Java,2019;
-Truls;1;Java,2019;
-Ingrid;3;Java,2019;
-Vegard;5;Java,2019;
