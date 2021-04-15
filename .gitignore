@@ -14,7 +14,6 @@ target/
 .project
 
 # JDT-specific (Eclipse Java Development Tools)     
-.classpath
 README.md
 foreksempel/
 plab/
@@ -23,6 +22,4 @@ lf/
 *.ex
 tests/
 .settings/
-ovinger.iml
-pom.xml
 *.zip
