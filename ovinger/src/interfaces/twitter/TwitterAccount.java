@@ -1,108 +1,89 @@
 package interfaces.twitter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TwitterAccount {
-	
-	private String name;
-	private List<TwitterAccount> followers = new ArrayList<>();
-	private List<TwitterAccount> following = new ArrayList<>();
+
+	private String username;
+	private Collection<TwitterAccount> followers = new ArrayList<>(),
+										following = new ArrayList<>();
 	private List<Tweet> tweets = new ArrayList<>();
-	
-	public TwitterAccount(String name) {
-		this.name = name;
+
+	public TwitterAccount(String username){
+		this.username = username;
 	}
-	
+
 	public String getUserName() {
-		return this.name;
+		return username;
 	}
-	
-	private void addFollower(TwitterAccount account) {
-		this.followers.add(account);
-	}
-	
-	private void removeFollower(TwitterAccount account) {
-		this.followers.remove(account);
-	}
-	
-	public int getFollowerCount() {
+
+	public int getFollowerCount(){
 		return followers.size();
 	}
-	
-	public void follow(TwitterAccount account) {
-		this.following.add(account);
-		account.addFollower(this);
+
+	public int getFollowingCount(){
+		return following.size();
 	}
-	
-	public void unfollow(TwitterAccount account) {
-		this.following.remove(account);
-		account.removeFollower(this);
-	}
-	
-	public boolean isFollowing(TwitterAccount account) {
-		return this.following.contains(account);
-	}
-	
-	public boolean isFollowedBy(TwitterAccount account) {
-		return this.followers.contains(account);
-	}
-	
-	public void tweet(String text) {
-		new Tweet(this, text);
-	}
-	
-	public void retweet(Tweet tweet) {
-		new Tweet(this, tweet);
-	}
-	
-	public void tweet(Tweet tweet) {
-		this.tweets.add(0, tweet);
-	}
-	
-	public Tweet getTweet(int i) {
-		return this.tweets.get(i-1);
-	}
-	
-	public int getTweetCount() {
-		return this.tweets.size();
-	}
-	
-	public int getRetweetCount() {
-		int retweets = 0;
-		for (Tweet tweet : this.tweets) {
-			if (tweet.getOriginalTweet().getOwner() == this) {
-				retweets += tweet.getRetweetCount();
-			}
+
+	public void follow(TwitterAccount account){
+		if (!account.followers.contains(this)){
+			account.followers.add(this);
+			this.following.add(account);
 		}
-		return retweets;
 	}
-	
-	public List<TwitterAccount> getFollowers(Comparator<TwitterAccount> comparator) {
-		if (comparator == null) {
+
+	public void unfollow(TwitterAccount account){
+		if (account.followers.contains(this)){
+			account.followers.remove(this);
+			this.following.remove(account);
+		}
+	}
+
+	public boolean isFollowing(TwitterAccount account){
+		return following.contains(account);
+	}
+
+	public boolean isFollowedBy(TwitterAccount account){
+		return followers.contains(account);
+	}
+
+	public void tweet(String text){
+		tweets.add(new Tweet(this, text));
+	}
+
+	public void retweet(Tweet tweet){
+		tweets.add(new Tweet(this, tweet));
+	}
+
+	public Tweet getTweet(int i){
+		if (i < 1 || i > tweets.size()) throw new IndexOutOfBoundsException();
+		return tweets.get(tweets.size() - i);
+	}
+
+	public int getTweetCount(){
+		return tweets.size();
+	}
+
+	public Collection<TwitterAccount> getFollowers(Comparator<TwitterAccount> comparator){
+		if (comparator == null){
 			return followers;
 		}
-		List<TwitterAccount> sortedFollowers = new ArrayList<>();
-		sortedFollowers.addAll(followers);
-		Collections.sort(sortedFollowers, comparator);
-		return sortedFollowers;
+		//return followers.stream().sorted(comparator).collect(Collectors.toList());
+		List<TwitterAccount> result = new ArrayList<>(followers);
+		Collections.sort(result, comparator);
+		return result;
 	}
-	
-	@Override
-	public String toString() {
-		return this.name;
-	}
-	
-	public static void main(String[] args) {
-		TwitterAccount ta1 = new TwitterAccount("Lars");
-		TwitterAccount ta2 = new TwitterAccount("Jens");
-		
-		Tweet t1 = new Tweet(ta1, "Hei");
-		Tweet t2 = new Tweet(ta2, "På");
-		Tweet t3 = new Tweet(ta2, t1);
-		
-		System.out.println(ta1.getRetweetCount());
+
+	public int getRetweetCount(){
+		int retweets = 0;
+		for (Tweet tweet : tweets){
+			Tweet originalTweet = tweet.getOriginalTweet();
+			if (originalTweet == null){
+				originalTweet = tweet;
+			}
+			if (originalTweet.getOwner() == this) retweets += originalTweet.getRetweetCount();
+		}
+		return retweets;
 	}
 }

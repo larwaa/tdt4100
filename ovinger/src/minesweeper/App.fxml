@@ -2,38 +2,51 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="475.0" style="-fx-background-color: e2e2e2e2;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="minesweeper.MinesweeperController">
    <children>
       <GridPane fx:id="gridPane" layoutX="25.0" layoutY="51.0" prefHeight="400.0" prefWidth="400.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0" />
-      <Label fx:id="victory" disable="true" layoutX="204.0" layoutY="-3.0" prefHeight="37.0" prefWidth="115.0" text="🏆" textAlignment="CENTER" visible="false">
-         <font>
-            <Font size="40.0" />
-         </font>
-      </Label>
-      <Button fx:id="easy" layoutX="187.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleEasy" prefHeight="40.0" prefWidth="76.0" text="Easy" textAlignment="CENTER" />
-      <Button fx:id="hard" layoutX="187.0" layoutY="251.0" mnemonicParsing="false" onAction="#handleHard" prefHeight="40.0" prefWidth="76.0" text="Hard" textAlignment="CENTER" />
-      <Button fx:id="medium" layoutX="187.0" layoutY="205.0" mnemonicParsing="false" onAction="#handleMedium" prefHeight="40.0" prefWidth="76.0" text="Medium" textAlignment="CENTER" />
-      <ToolBar layoutX="50.0" layoutY="7.0" prefHeight="37.0" prefWidth="90.0" style="-fx-border-color: #777777; -fx-background-color: #e2e2e2; -fx-border-radius: 2;">
-         <items>
-            <Label text="Bombs:" />
-            <Label fx:id="bombs" />
-         </items>
-      </ToolBar>
-      <Label fx:id="difficultyText" layoutX="105.0" layoutY="67.0" text="Choose difficulty">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Button fx:id="reset" disable="true" layoutX="152.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleReset" prefHeight="37.0" prefWidth="53.0" text="Reset" />
-      <Button fx:id="saves" layoutX="319.0" layoutY="7.0" mnemonicParsing="false" onAction="#save" prefHeight="37.0" prefWidth="53.0" text="Save" />
-      <Button fx:id="load" layoutX="383.0" layoutY="7.0" mnemonicParsing="false" onAction="#load" prefHeight="37.0" prefWidth="53.0" text="Load" />
-      <Button fx:id="easy1" layoutX="10.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleEasy" prefHeight="40.0" prefWidth="30.0" text="E" textAlignment="CENTER" />
-      <Button fx:id="hard1" layoutX="10.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleHard" prefHeight="40.0" prefWidth="30.0" text="H" textAlignment="CENTER" />
-      <Button fx:id="medium1" layoutX="10.0" layoutY="112.0" mnemonicParsing="false" onAction="#handleMedium" prefHeight="40.0" prefWidth="30.0" text="M" textAlignment="CENTER" />
+      <Pane fx:id="topPane" layoutX="50.0" layoutY="7.0" prefHeight="50.0" prefWidth="400.0">
+         <children>
+            <Button fx:id="reset" disable="true" layoutX="95.0" mnemonicParsing="false" onAction="#handleReset" prefHeight="37.0" prefWidth="53.0" text="Reset" />
+            <ToolBar prefHeight="37.0" prefWidth="90.0" style="-fx-border-color: #777777; -fx-background-color: #e2e2e2; -fx-border-radius: 2;">
+               <items>
+                  <Label text="Bombs:" />
+                  <Label fx:id="bombs" />
+               </items>
+            </ToolBar>
+            <Label fx:id="victory" disable="true" layoutX="154.0" layoutY="-12.0" prefHeight="0.0" prefWidth="53.0" text="🏆" textAlignment="CENTER" visible="false">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <Button fx:id="newGame" disable="true" layoutX="340.0" mnemonicParsing="false" onAction="#handleNewGame" prefHeight="37.0" prefWidth="46.0" text="New" />
+            <Button fx:id="saves" disable="true" layoutX="230.0" mnemonicParsing="false" onAction="#save" prefHeight="37.0" prefWidth="53.0" text="Save" />
+            <Button fx:id="load" layoutX="285.0" mnemonicParsing="false" onAction="#load" prefHeight="37.0" prefWidth="53.0" text="Load" />
+         </children>
+      </Pane>
+      <Pane fx:id="difficultyPane" layoutX="30.0" layoutY="15.0" prefHeight="400.0" prefWidth="420.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Label fx:id="errorMessage" layoutX="100.0" layoutY="332.0" prefHeight="17.0" prefWidth="240.0" textAlignment="CENTER" textFill="RED" />
+            <Button fx:id="easy" layoutX="175.0" layoutY="100.0" mnemonicParsing="false" onAction="#easy" prefHeight="40.0" prefWidth="76.0" text="Easy" textAlignment="CENTER" />
+            <Button fx:id="hard" layoutX="175.0" layoutY="190.0" mnemonicParsing="false" onAction="#hard" prefHeight="40.0" prefWidth="76.0" text="Hard" textAlignment="CENTER" />
+            <Button fx:id="medium" layoutX="175.0" layoutY="145.0" mnemonicParsing="false" onAction="#medium" prefHeight="40.0" prefWidth="76.0" text="Medium" textAlignment="CENTER" />
+            <Button fx:id="custom" layoutX="175.0" layoutY="235.0" mnemonicParsing="false" onAction="#custom" prefHeight="40.0" prefWidth="76.0" text="Custom" textAlignment="CENTER" />
+            <TextField fx:id="rows" layoutX="93.0" layoutY="280.0" prefHeight="40.0" prefWidth="76.0" promptText="Rows" />
+            <TextField fx:id="columns" layoutX="175.0" layoutY="280.0" prefHeight="40.0" prefWidth="76.0" promptText="Columns" />
+            <TextField fx:id="numBombs" layoutX="257.0" layoutY="280.0" prefHeight="40.0" prefWidth="76.0" promptText="Bombs" />
+            <Label fx:id="difficultyText" layoutX="93.0" layoutY="40.0" text="Choose difficulty">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

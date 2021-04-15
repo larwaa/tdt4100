@@ -3,86 +3,122 @@ package minesweeper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 
 public class MinesweeperController {
 	
 	@FXML
 	GridPane gridPane = new GridPane();
 	@FXML
-	Button easy, medium, hard, reset, load, saves, easy1, medium1, hard1;
+	Button easy, medium, hard, reset, load, saves, custom, newGame;
 	@FXML
 	AnchorPane anchorPane;
 	@FXML
-	Label bombs, victory, difficultyText;
+	Pane topPane, difficultyPane;
+	@FXML
+	Label bombs, victory, difficultyText, errorMessage;
+	@FXML
+	TextField rows, columns, numBombs;
 	
-	MinesweeperIO io = new MinesweeperIO();
-	List<MyButton> buttonList;
-	Grid grid;
-	int clicks = 0;
+	private MinesweeperIO io = new MinesweeperIO();
+	private List<MyButton> buttonList;
+	private Game game;
+	private final static char HARD = 'H', MEDIUM = 'M', EASY = 'E', CUSTOM = 'C';
 	private char difficulty;
-
+	
+	public void handleNewGame() {
+		buttonList.clear();
+		refreshGame();
+		newGame.setDisable(true);
+		victory.setVisible(false);
+		victory.setDisable(true);
+		saves.setDisable(true);
+		reset.setDisable(true);
+		gridPane.setDisable(false);
+		anchorPane.getChildren().add(difficultyPane);
+	}
+	
 	public void handleReset() {
-		this.buttonList.clear();
-		if (this.difficulty == 'E') {
-			handleEasy();
-		} else if (this.difficulty == 'M') {
-			handleMedium();
+		buttonList.clear();
+		handleDifficulty();
+		refreshGame();
+		saves.setDisable(false);
+		victory.setVisible(false);
+		victory.setDisable(true);
+		gridPane.setDisable(false);
+	}
+
+	public void easy() {
+		this.difficulty = EASY;
+		handleDifficulty();
+	}
+	
+	public void medium() {
+		this.difficulty = MEDIUM;
+		handleDifficulty();
+	}
+	
+	public void hard() {
+		this.difficulty = HARD;
+		handleDifficulty();
+	}
+	
+	public void custom() {
+		this.difficulty = CUSTOM;
+		handleDifficulty();
+	}
+	
+	public void handleDifficulty() {
+		int verticalSize, horizontalSize, numBombs;
+		
+		if (difficulty == HARD || difficulty == MEDIUM || difficulty == EASY) {
+			game = new Game(difficulty);
+			
+			buttonList = new ArrayList<>(game.size());
+			initGame();
+			setButton();
+			setRemainingBombText();
+			
+		} else if (difficulty == CUSTOM) {
+			try {
+				verticalSize = Integer.parseInt(rows.getText());
+				horizontalSize = Integer.parseInt(columns.getText());
+				numBombs = Integer.parseInt(this.numBombs.getText());
+				
+				try {
+					game = new Game(verticalSize, horizontalSize, numBombs);
+					buttonList = new ArrayList<>(game.size());
+					initGame();
+					setButton();
+					setRemainingBombText();
+					
+				} catch (IllegalArgumentException e) {
+					e.getMessage();
+					errorMessage.setText("Maks dimensjoner: 32 x 32, maks bomber: størrelse / 4");
+				}
+				
+			} catch (NumberFormatException e) {
+				e.getMessage();
+				errorMessage.setText("Input må være tall!");
+			}
+			
 		} else {
-			handleHard();
+			throw new UnknownError("Unknown Error");
 		}
 
-		this.refreshGrid();
-		this.saves.setDisable(false);
-		this.victory.setVisible(false);
-		this.victory.setDisable(true);
-		this.gridPane.setDisable(false);
-		
 	}
-	
-	public void handleEasy() {
-		this.difficulty = 'E';
-		int verticalSize = 8;
-		int horizontalSize = 8;
-		int numBombs = 10;
-		this.grid = new Grid(verticalSize, horizontalSize, numBombs);
-		this.buttonList = new ArrayList<>(grid.getSize());
-		initGame();
-		refreshGrid();
-	}
-	
-	public void handleMedium() {
-		this.difficulty = 'M';
-		int verticalSize = 16;
-		int horizontalSize = 16;
-		int numBombs = 40;
-		this.grid = new Grid(verticalSize, horizontalSize, numBombs);
-		this.buttonList = new ArrayList<>(grid.getSize());
-		initGame();
-		refreshGrid();
-	}
-	
-	public void handleHard() {
-		this.difficulty = 'H';
-		int verticalSize = 16;
-		int horizontalSize = 32;
-		int numBombs = 99;
-		this.grid = new Grid(verticalSize, horizontalSize, numBombs);
-		this.buttonList = new ArrayList<>(grid.getSize());
-		initGame();
-		refreshGrid();
-	}
-	
+
 	private void setButton() {
 		int i = 0;
-		for (Piece piece : grid) {
+		for (Piece piece : game) {
 			MyButton button = new MyButton(piece, i);
 			button.setMinWidth(30);
 			button.setMinHeight(30);
@@ -93,7 +129,7 @@ public class MinesweeperController {
 					onRightClick(button);
 				}
 			});
-			this.setStyle(button);
+			setStyle(button);
 			this.buttonList.add(button);
 			this.gridPane.add(button, button.getX(), button.getY());
 			i++;
@@ -103,29 +139,27 @@ public class MinesweeperController {
 	private void setStyle(MyButton button) {
 		Piece piece = button.getPiece();
 		
-		if (! piece.isCovered()) {
-			button.uncover();
-			button.setText(piece.toString());
-			button.setStyle("-fx-background-color: #E2E2E2; ");
-		} else if (piece.isFlagged()){
-			button.setText("▲");
-			button.setStyle("-fx-text-fill: #ff0000; ");
+		if (! piece.isConcealed()) {
+			button.reveal();
+		} else if (piece.isFlagged()) {
+			button.flag(true);
+		} else if (!piece.isFlagged()) {
+			button.flag(false);
 		}
 	}
 	
 	private void initBoard() {
-		this.anchorPane.setPrefHeight(grid.getHorizontalSize()*30 + 10);
-		this.anchorPane.setPrefWidth(grid.getVerticalSize()*30 + 10);
-		this.anchorPane.getChildren().remove(easy);
-		this.anchorPane.getChildren().remove(medium);
-		this.anchorPane.getChildren().remove(hard);
-		this.anchorPane.getChildren().remove(difficultyText);
+		anchorPane.setPrefHeight(game.getHorizontalSize()*30 + 10);
+		anchorPane.setPrefWidth(game.getVerticalSize()*30 + 10);
+		anchorPane.getChildren().remove(difficultyPane);
+		
 		this.reset.setDisable(false);
-		this.bombs.setText(Integer.toString(grid.getNumBombs() - grid.getNumFlag()));
+		newGame.setDisable(false);
 		this.saves.setDisable(false);
 		this.victory.setVisible(false);
 		this.victory.setDisable(true);
 		this.gridPane.setDisable(false);
+		setRemainingBombText();
 	}
 	
 	private void initGame() {
@@ -133,73 +167,56 @@ public class MinesweeperController {
 		setButton();
 	}
 	
-	private void onRightClick(MyButton button) {
-		Piece piece = button.getPiece();
-		grid.flag(piece);
-		if (piece.isCovered()) {
-			clicks++;
-		}
-		
-		if (piece.isFlagged()) {
-			button.setText("▲");
-			button.setStyle("-fx-text-fill: #ff0000; ");
-		} else if (piece.isCovered()){
-			button.setText("");
-			button.setStyle("-fx-text-fill: #000000; ");
-		}
-		
-		this.bombs.setText(Integer.toString(grid.getNumBombs() - grid.getNumFlag()));
-		this.checkVictory();
+	private void setRemainingBombText() {
+		bombs.setText(Integer.toString(game.getRemainingBombs()));
 	}
 	
-	private int getIndex(int x, int y) {
-		return y * grid.getHorizontalSize() + x;
+	private void flag(MyButton button) {
+		Piece piece = button.getPiece();
+		game.flag(piece);
+		setStyle(button);
+	}
+	
+	private void reveal(MyButton button) {
+		Piece piece = button.getPiece();
+		game.reveal(piece);
+		button.reveal();
+	}
+	
+	private void onRightClick(MyButton button) {
+		flag(button);
+		setRemainingBombText();
 	}
 	
 	private void onLeftClick(MyButton button) {
 		Piece piece = button.getPiece();
-		if (piece.isCovered()) {
-			clicks++;
-		}
-		if (! piece.isFlagged()){
-			grid.uncover(piece);
+		
+		if (! piece.isFlagged() && piece.isConcealed()){
+			reveal(button);
 			
-			button.uncover();
-			button.setText(piece.toString());
-			button.setStyle("-fx-background-color: #E2E2E2; ");
-			
-			if (! piece.isBomb() && piece.getNumBombs() == 0) {
-				int x = piece.getX();
-				int y = piece.getY();
-				
-				for (int i=-1; i<=1; i++) {
-					for (int j=-1; j<=1; j++) {
-						int tempIndex = getIndex(x + j, y + i);
-						if (! (tempIndex < 0 || tempIndex >= grid.getSize())) {
-							button = buttonList.get(tempIndex);
-							if (button.isCovered() && ! button.getPiece().isCovered()) { 
-								this.onLeftClick(button);
-							}
-						}
-					}
-				}
-			}
-			this.refreshGrid();
+			this.refreshGame();
 			this.checkLoss(piece);
 			this.checkVictory();
-		}
+		} else if (! piece.isConcealed()) {
+			reveal(button);
+			this.refreshGame();
+			this.checkLoss(piece);
+			this.checkVictory();
+			this.checkLoss();
+			}
 	}
 	
-	private void refreshGrid() {
-		this.gridPane.getChildren().clear();
-		for (MyButton button : this.buttonList) {
-			this.gridPane.add(button, button.getX(), button.getY());
-		this.bombs.setText(Integer.toString(grid.getNumBombs() - grid.getNumFlag()));
+	private void refreshGame() {
+		gridPane.getChildren().clear();
+		for (MyButton button : buttonList) {
+			setStyle(button);
+			gridPane.add(button, button.getX(), button.getY());
 		}
+		setRemainingBombText();
 	}
 	
 	private void checkVictory() {
-		if (grid.checkVictory()) {
+		if (game.checkVictory()) {
 			this.gridPane.setDisable(true);
 			this.victory.setDisable(false);
 			this.victory.setText("😎");
@@ -209,7 +226,16 @@ public class MinesweeperController {
 	}
 	
 	private void checkLoss(Piece p) {
-		if (grid.checkLoss(p)) {
+		if (game.checkLoss(p)) {
+			this.gridPane.setDisable(true);
+			this.victory.setDisable(false);
+			this.victory.setText("😵");
+			this.victory.setVisible(true);
+		}
+	}
+	
+	private void checkLoss() {
+		if (game.checkCompleteLoss()){
 			this.gridPane.setDisable(true);
 			this.victory.setDisable(false);
 			this.victory.setText("😵");
@@ -219,7 +245,8 @@ public class MinesweeperController {
 	
 	public void save() {
 		try {
-			io.save("Minesweeper.txt", grid);
+			io.save("Minesweeper.txt", game);
+			load.setDisable(false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -227,24 +254,19 @@ public class MinesweeperController {
 	
 	public void load() {
 		try {
+			MinesweeperObjectLoader loader = io.load("Minesweeper.txt");
 			this.buttonList.clear();
 			this.saves.setDisable(false);
 			this.gridPane.setDisable(false);
 			this.victory.setVisible(false);
 			this.victory.setDisable(true);
-			MinesweeperObjectLoader loader = io.load("Minesweeper.txt");
-			this.grid = loader.grid;
-			if (grid.getSize() == 512) {
-				this.difficulty = 'H';
-			} else if (grid.getSize() == 256) {
-				this.difficulty = 'M';
-			} else if (grid.getSize() == 64) {
-				this.difficulty = 'E';
-			}
+			this.game = loader.game;
+			this.difficulty = game.getDifficulty();
 			initGame();
-			this.refreshGrid();
+			this.refreshGame();
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.getMessage();
+			load.setDisable(true);
 		}
 	}
 }	

@@ -1,9 +1,9 @@
 package minesweeper;
 
-public class Piece {
+public class Piece implements Comparable<Piece>{
 
     private boolean bomb;
-    private boolean covered = true;
+    private boolean concealed = true;
     private boolean flagged = false;
     private int numBombs = 0;
     private int x;
@@ -16,13 +16,22 @@ public class Piece {
     
     public Piece(boolean bomb, boolean covered, boolean flagged, int x, int y) {
     	this.bomb = bomb;
-    	this.covered = covered;
+    	this.concealed = covered;
     	this.flagged = flagged;
     	this.setCoordinates(x, y);
     }
 
     public boolean isBomb(){
         return this.bomb;
+    }
+    
+    public boolean equals(Piece piece) {
+    	return isBomb() == piece.isBomb() 
+    			&& isFlagged() == piece.isFlagged() 
+    			&& isConcealed() == piece.isConcealed()
+    			&& getNumBombs() == piece.getNumBombs()
+    			&& getX() == piece.getX()
+    			&& getY() == piece.getY();
     }
 
     void setBomb(Boolean b) {
@@ -33,8 +42,8 @@ public class Piece {
     	this.numBombs = 0;
     }
     
-    public boolean isCovered(){
-        return this.covered;
+    public boolean isConcealed(){
+        return this.concealed;
     }
     
     public boolean isFlagged() {
@@ -45,16 +54,16 @@ public class Piece {
         return this.numBombs;
     }
 
-    public void uncover(){
-        if (! isFlagged() && isCovered()){
-            this.covered = false;
+    public void reveal(){
+        if (! isFlagged() && isConcealed()){
+            this.concealed = false;
         }
     }
 
     public void flag(){
-        if (isFlagged() && isCovered()){
+        if (isFlagged() && isConcealed()){
             this.flagged = false;
-        } else if (isCovered()){
+        } else if (isConcealed()){
             this.flagged = true;
         }
     }
@@ -81,7 +90,7 @@ public class Piece {
 
     @Override
     public String toString() {
-    	if (this.isCovered()) {
+    	if (this.isConcealed()) {
     		return "H";
     	} else if (this.isBomb()) {
     		return "*";
@@ -90,5 +99,17 @@ public class Piece {
     	} else {
     		return Integer.toString(this.getNumBombs());
     	}
+
+    	//For debugging
+//    	return "row: " + this.getY() + " column: " + this.getX();
     }
+
+	@Override
+	public int compareTo(Piece o) {
+		if (this.getY() == o.getY()) {
+			return this.getX() - o.getX();
+		}
+		return this.getY() - o.getY();
+	}
+
 }

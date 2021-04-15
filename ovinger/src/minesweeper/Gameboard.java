@@ -22,6 +22,16 @@ public class Gameboard implements Iterable<Piece> {
 		initiateGameboard();
 	}
 	
+	public Gameboard(int verticalSize, int horizontalSize, List<Piece> pieceList) {
+		checkDimensions(verticalSize);
+		checkDimensions(horizontalSize);
+		this.gameboard = pieceList;
+		this.bombs = (int) gameboard.stream().filter((p) -> p.isBomb()).count();
+		this.verticalSize = verticalSize;
+		this.horizontalSize = horizontalSize;
+		countBombs();
+	}
+	
 	private int indexToRow(int index) {
 		return index / horizontalSize;
 	}
@@ -31,7 +41,7 @@ public class Gameboard implements Iterable<Piece> {
 	}
 	
 	private int coordinatesToIndex(int row, int column) {
-		return row * horizontalSize + column * verticalSize;
+		return row * horizontalSize + column;
 	}
 	
 	private void checkInt(int i, Predicate<Integer> predicate) {
@@ -49,14 +59,14 @@ public class Gameboard implements Iterable<Piece> {
 	}
 	
 	public Piece getPiece(int row, int column) {
-		checkInt(row, (i) -> i > verticalSize || i < 0);
-		checkInt(column, (i) -> i > horizontalSize || i < 0);
+		checkInt(row, (i) -> i < verticalSize || i >= 0);
+		checkInt(column, (i) -> i < horizontalSize || i >= 0);
 		return gameboard.get(coordinatesToIndex(row, column));
 	}
 	
 	private void checkDimensions(int i) {
-		if (i < 10 || i > 32) {
-			throw new IllegalArgumentException("Maximum (minimum) dimensions are: 32 x 32 (10 x 10)");
+		if (i < 4 || i > 32) {
+			throw new IllegalArgumentException("Maximum (minimum) dimensions are: 32 x 32 (4 x 4)");
 		}
 	}
 	
@@ -64,7 +74,7 @@ public class Gameboard implements Iterable<Piece> {
 		return gameboard.indexOf(piece);
 	}
 	
-	private Piece getPiece(int index) {
+	public Piece getPiece(int index) {
 		return gameboard.get(index);
 	}
 	
@@ -73,7 +83,9 @@ public class Gameboard implements Iterable<Piece> {
 	}
 	
 	private int getAttributeCount(Predicate<Piece> predicate) {
-		return (int) gameboard.stream().filter(predicate).count();
+		return (int) gameboard.stream()
+							.filter(predicate)
+							.count();
     }
     
     public int getBombCount() {
@@ -81,11 +93,11 @@ public class Gameboard implements Iterable<Piece> {
     }
     
     public int getConcealedCount() {
-    	return getAttributeCount((p) -> p.isCovered());
+    	return getAttributeCount((p) -> p.isConcealed());
     }
     
     public int getRevealedCount() {
-    	return getAttributeCount((p) -> ! p.isCovered());
+    	return getAttributeCount((p) -> ! p.isConcealed());
     }
     
     public int getFlagCount() {
@@ -100,15 +112,13 @@ public class Gameboard implements Iterable<Piece> {
     	
     	if (removedBombs > 0) {
     		List<Piece> pieceList = gameboard.stream()
-					.filter((p) -> ! filterList
-					.contains(p))
+					.filter((p) -> ! filterList.contains(p))
+					.filter((p) -> ! p.isBomb())
 					.collect(Collectors.toList());
     		
     		filterList.forEach((p) -> p.setBomb(false));
     		
 			distributeBombs(pieceList, removedBombs);
-			resetBombCount();
-			countBombs();
     	}
     }
     
@@ -117,6 +127,7 @@ public class Gameboard implements Iterable<Piece> {
     }
     
     private void countBombs() {
+    	resetBombCount();
     	getBombList().stream().forEach((b) -> iterateBombCount(b));
     }
     
@@ -125,16 +136,15 @@ public class Gameboard implements Iterable<Piece> {
     }
     
     public List<Piece> squareList(Piece piece){
-    	int startIndex = getIndex(piece) - (horizontalSize + 1);
-    	int endIndex = startIndex + 2 * horizontalSize;
+    	int y = piece.getY();
+    	int x = piece.getX();
     	List<Piece> squareList = new ArrayList<>();
     	
-    	for (int i = startIndex; i <= endIndex; i += horizontalSize) {
-    		for (int j = 0; j <= 2; j++) {
-    			int index = i + j;
-    			
-    			if (checkIntBoolean(index, (n) -> n > 0 && n < size())) {
-    				squareList.add(getPiece(index));
+    	for (int row = -1; row <= 1; row++) {
+    		for (int col = -1; col <= 1; col++) {
+    			if (checkIntBoolean(y + row, (n) -> n >= 0 && n < verticalSize) 
+    					&& checkIntBoolean(x + col, (n) -> n >= 0 && n < horizontalSize)) {
+    				squareList.add(getPiece(row + y, col + x));
     			}
     		}
     	}
@@ -143,17 +153,20 @@ public class Gameboard implements Iterable<Piece> {
     
     private void distributeBombs(List<Piece> pieceList, int numBombs) {
     	Collections.shuffle(pieceList);
-    	pieceList.stream().limit(numBombs).forEach(piece -> piece.setBomb(true));
+    	pieceList.stream()
+    		.limit(numBombs)
+    		.forEach(piece -> piece.setBomb(true));
+    	countBombs();
     }
     
     private void generatePieces(){
     	for (int i = 0; i < verticalSize * horizontalSize; i++) {
-			gameboard.add(new Piece(false, indexToRow(i), indexToColumn(i)));
-		}
+			gameboard.add(new Piece(false, indexToColumn(i), indexToRow(i)));
+    	}
+    	Collections.sort(gameboard);
    	 
     	List<Piece> bombList = new ArrayList<>(this.gameboard);
-    	Collections.shuffle(bombList);
-    	bombList.stream().limit(bombs).forEach((piece) -> piece.setBomb(true));
+    	distributeBombs(bombList, bombs);
     }
     
     private List<Piece> getBombList(){
@@ -166,6 +179,20 @@ public class Gameboard implements Iterable<Piece> {
     
     public int getHorizontalSize() {
     	return this.horizontalSize;
+    }
+    
+    @Override
+    public String toString() {
+    	String s = "";
+    	
+    	for (int i = 0; i < this.size(); i++) {
+    		if (i % horizontalSize == 0) {
+    			s += "\n" + this.getPiece(i);
+    		} else {
+    			s += this.getPiece(i);
+    		}
+    	}
+    	return s;
     }
     
 	@Override

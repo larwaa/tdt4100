@@ -10,13 +10,13 @@ import java.util.Scanner;
 public class MinesweeperIO implements MinesweeperIOInterface {
 
 	@Override
-	public void save(String filename, G grid) throws IOException {
+	public void save(String filename, Game game) throws IOException {
 		PrintWriter writer = new PrintWriter(filename);
 		
-		String s = String.format("%s,%s,%s,%s\n", grid.getVerticalSize(), grid.getHorizontalSize(), grid.getNumFlag(), grid.getUncovered());
+		String s = String.format("%s,%s,%s\n", game.getVerticalSize(), game.getHorizontalSize(), game.getDifficulty());
 		
-		for (Piece piece : grid) {
-			s += String.format("%s,%s,%s;", piece.isBomb(), piece.isCovered(), piece.isFlagged());
+		for (Piece piece : game) {
+			s += String.format("%s,%s,%s;", piece.isBomb(), piece.isConcealed(), piece.isFlagged());
 		}
 		
 		writer.print(s);
@@ -32,12 +32,10 @@ public class MinesweeperIO implements MinesweeperIOInterface {
 		
 		int verticalSize = Integer.parseInt(gridString[0]);
 		int horizontalSize = Integer.parseInt(gridString[1]);
-		int numFlag = Integer.parseInt(gridString[2]);
-		int uncovered = Integer.parseInt(gridString[3]);
-		
+		char difficulty = gridString[2].charAt(0);
+
 		String[] pieces = scanner.nextLine().split(";");
 		List<Piece> pieceList = new ArrayList<>();
-		List<Piece> bombList = new ArrayList<>();
 		
 		for (int i = 0; i < pieces.length; i++) {
 			if (pieces[i].length() > 0) {
@@ -52,18 +50,13 @@ public class MinesweeperIO implements MinesweeperIOInterface {
 				Piece piece = new Piece(bomb, covered, flagged, x, y);
 				
 				pieceList.add(piece);
-				
-				if (bomb) {
-					bombList.add(piece);
-				}
-				
 			}
 		}
 		
-		Grid grid = new Grid(verticalSize, horizontalSize, pieceList, bombList, numFlag, uncovered);
+		Game game = new Game(verticalSize, horizontalSize, pieceList, difficulty);
 		
 		MinesweeperObjectLoader loader = new MinesweeperObjectLoader();
-		loader.grid = grid;
+		loader.game = game;
 		scanner.close();
 		
 		return loader;

@@ -6,7 +6,8 @@ public class MyButton extends Button {
 	
 	private Piece piece;
 	private int index;
-	private boolean covered = true;
+	private boolean concealed = true;
+	private boolean flagged = false;
 	
 	public MyButton(Piece piece, int index) {
 		this.piece = piece;
@@ -29,13 +30,28 @@ public class MyButton extends Button {
 		return this.index;
 	}
 	
-	public boolean isCovered() {
-		return this.covered;
+	public boolean isConcealed() {
+		return this.concealed;
 	}
 	
-	public void uncover() {
-		this.covered = false;
-		
+	public void reveal() {
+		if (! piece.isConcealed()) {
+			this.concealed = false;
+			this.setText(piece.toString());
+			this.setStyle("-fx-background-color: #E2E2E2; ");
+		}
+	}
+	
+	public void flag(Boolean flagged) {
+		if (flagged) {
+			this.flagged = true;
+			setText("▲");
+			setStyle("-fx-text-fill: #ff0000; ");
+		} else {
+			flagged = false;
+			setText(null);
+			setStyle(null);
+		}
 	}
 
 }
